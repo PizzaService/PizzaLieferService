@@ -16,7 +16,7 @@ header {
   border-bottom-right-radius: 10px;
 }
 
-button.header-button {
+button.header-button-left, button.header-button-right {
   height: 30px;
   width: 150px;
   cursor: pointer;
@@ -28,16 +28,16 @@ button.header-button {
   padding: 0;
 }
 
-button.header-button:hover {
+button.header-button-left:hover, button.header-button-right:hover{
   background: #55b569;
 }
 
-#right {
+button.header-button-right {
   float: left;
   margin: 10px 0px 10px 10px;
 }
 
-#left {
+button.header-button-left {
   float: right;
   margin: 10px 10px 10px 0px;
 }
