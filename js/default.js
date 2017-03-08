@@ -20,6 +20,6 @@ var products;
 loadJSON("file:///D:/Studium/PizzaService/Programm/js/json/products.json", function(data){products = data}, function(xhr){console.log(xhr)});
 
 window.onload = function () { 
-	
+	document.getElementById("title").innerHTML = "hahahahahaha";
 	alert("It's loaded!");
 }
