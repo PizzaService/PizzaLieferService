@@ -1,6 +1,6 @@
 function addPizza(id, name, imgPath, price)
 {
-	document.getElementById("container").innerHTML += "<br /><div id=\""+id+"\"><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /></div>";
+	document.getElementById("container").innerHTML +="<br /><div id=\""+id+"\"><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /><button>Pizza hinzuf&uuml;gen</button></div>";
 }
 
 function loadJSON(path, success, error)
