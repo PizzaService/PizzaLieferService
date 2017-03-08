@@ -21,17 +21,19 @@ function loadJSON(path, success, error)
     };
     xhr.send(null);
 }
+
 var products;
-loadJSON("file:///D:/Studium/PizzaService/Programm/js/json/products.json", function(data){products = data}, function(xhr){console.log(xhr)});
+var path = document.getElementsByTagName("script")[0].src;
+path = path.slice(0,-10) + "json/products.json";
+loadJSON(path, function(data){products = data}, function(xhr){console.log(xhr)});
 
 window.onload = function () { 
 	document.getElementById("title").innerHTML = "hahahahahaha";
-	document.getElementById("image").src = "images/salami.png"
+	document.getElementById("image").src = "images/salami.png";
 	for(var i = 0; i < products.length; i++)
 	{
 		addPizza(products[i].name, products[i].image, products[i].price);
 	}
-	
 	
 	alert("It's loaded!");
 }
