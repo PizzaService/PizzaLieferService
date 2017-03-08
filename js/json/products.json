@@ -1,4 +1,4 @@
-{"name":"Pizza Margaritha",
+[{"name":"Pizza Margaritha",
 	"price":6.00,
 	"description":"Tomatensauce, Käse",
 	"image":"/images/margaritha.png"},
@@ -13,5 +13,5 @@
 {"name":"Pizza Hawaii",
 	"price":7.50,
 	"description":"Tomatensauce, Schinken, Ananas, Käse",
-	"image":"/images/hawaii.png"}
+	"image":"/images/hawaii.png"}]
 	
