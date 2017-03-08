@@ -1,3 +1,8 @@
+function addPizza(name, imgPath, price)
+{
+	document.getElementById("container").innerHTML += "<br /><div><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /></div>";
+}
+
 function loadJSON(path, success, error)
 {
     var xhr = new XMLHttpRequest();
@@ -21,5 +26,12 @@ loadJSON("file:///D:/Studium/PizzaService/Programm/js/json/products.json", funct
 
 window.onload = function () { 
 	document.getElementById("title").innerHTML = "hahahahahaha";
+	document.getElementById("image").src = "images/salami.png"
+	for(var i = 0; i < products.length; i++)
+	{
+		addPizza(products[i].name, products[i].image, products[i].price);
+	}
+	
+	
 	alert("It's loaded!");
 }

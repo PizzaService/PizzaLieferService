@@ -1,17 +1,17 @@
 [{"name":"Pizza Margherita",
 	"price":6.00,
 	"description":"Tomatensauce, Käse",
-	"image":"/images/margherita.png"},
+	"image":"images/margherita.png"},
 {"name":"Pizza Salami",
 	"price":7.00,
 	"description":"Tomatensauce, Salami, Käse",
-	"image":"/images/salami.png"},
+	"image":"images/salami.png"},
 {"name":"Pizza Schinken",
 	"price":7.00,
 	"description":"Tomatensauce, Schinken, Käse",
-	"image":"/images/schinken.png"},
+	"image":"images/schinken.png"},
 {"name":"Pizza Hawaii",
 	"price":7.50,
 	"description":"Tomatensauce, Schinken, Ananas, Käse",
-	"image":"/images/hawaii.png"}]
+	"image":"images/hawaii.png"}]
 	
