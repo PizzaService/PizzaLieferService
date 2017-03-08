@@ -1,6 +1,6 @@
-function addPizza(name, imgPath, price)
+function addPizza(id, name, imgPath, price)
 {
-	document.getElementById("container").innerHTML += "<br /><div><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /></div>";
+	document.getElementById("container").innerHTML += "<br /><div id=\""+id+"\"><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /></div>";
 }
 
 function loadJSON(path, success, error)
@@ -32,8 +32,7 @@ window.onload = function () {
 	document.getElementById("image").src = "images/salami.png";
 	for(var i = 0; i < products.length; i++)
 	{
-		addPizza(products[i].name, products[i].image, products[i].price);
+		addPizza(i, products[i].name, products[i].image, products[i].price);
 	}
 	
-	alert("It's loaded!");
 }
