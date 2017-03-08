@@ -2,6 +2,17 @@ function addPizza(id, name, imgPath, price)
 {
 	document.getElementById("container").innerHTML +="<br /><div id=\""+id+"\"><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /><button>Pizza hinzuf&uuml;gen</button></div>";
 }
+function addPizzaCart(id, name, price)
+{
+	document.getElementById("container").innerHTML +="<div id=\""+id+"\">"+name+"; Preis: "+price+"<button id=\"button"+id+"\">&#10006;</button></div>";
+	
+}
+
+function bla()
+{
+	alert("jo");
+
+}
 
 function loadJSON(path, success, error)
 {
@@ -27,7 +38,13 @@ function showCart(products)
     document.getElementById("container").innerHTML = "";
 	for(var i = 0; i < products.length; i++)
 	{
-		addPizza(i, products[i].name, products[i].image, products[i].price);
+		addPizzaCart(i, products[i].name, products[i].price);
+		(function (i) {																		//
+			document.getElementById("button"+i).addEventListener("click", function () {		//	setzt einen listener auf den aktuellen button. funktioniert nur net so wies soll.
+				alert(i);																	// 					
+			});
+		}(i));
+		
 	}
 }
 
@@ -50,13 +67,11 @@ loadJSON(startPath, function(data){products = data}, function(xhr){console.log(x
 loadJSON(cartPath, function(data){cart = data}, function(xhr){console.log(xhr)});
 
 window.onload = function () { 
-	document.getElementById("title").innerHTML = "hahahahahaha";
-	document.getElementById("image").src = "images/salami.png";
 	start(products);
 	document.getElementById("showCart").addEventListener("click", function() {
     showCart(cart);
 });
-	document.getElementById("start").addEventListener("click", function() {
+	document.getElementById("showStart").addEventListener("click", function() {
     start(products);
 });
 	
