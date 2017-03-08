@@ -2,6 +2,7 @@ function loadJSON(path, success, error)
 {
     var xhr = new XMLHttpRequest();
 	xhr.overrideMimeType("application/json");
+    xhr.open("GET", path, true);
     xhr.onreadystatechange = function()
     {
 		if(xhr.readyState == 4)
@@ -13,12 +14,12 @@ function loadJSON(path, success, error)
 					error(xhr);
 			}
     };
-    xhr.open("GET", path, true);
     xhr.send(null);
 }
+var products;
+loadJSON("file:///D:/Studium/PizzaService/Programm/js/json/products.json", function(data){products = data}, function(xhr){console.log(xhr)});
 
 window.onload = function () { 
-	var products;
-	loadJSON("file:///C:/products.json", function(data){products = data}, function(xhr){console.log(xhr)});
+	
 	alert("It's loaded!");
 }
