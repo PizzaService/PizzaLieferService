@@ -1,0 +1,8 @@
+[{"name":"Pizza Schinken",
+	"price":7.00,
+	"description":"Tomatensauce, Schinken, Käse",
+	"image":"images/schinken.png"},
+{"name":"Pizza Margherita",
+	"price":6.00,
+	"description":"Tomatensauce, Käse",
+	"image":"images/margherita.png"}]
