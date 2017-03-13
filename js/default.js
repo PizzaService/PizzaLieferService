@@ -10,8 +10,7 @@ function addPizza(id, name, imgPath, price)
 	pizzaDiv.id = id;
 	pizzaDiv.innerHTML = name;
 
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
+	breakLine(pizzaDiv);
 
 	var elem = document.createElement("img");
 	elem.setAttribute("height", "200");
@@ -19,34 +18,23 @@ function addPizza(id, name, imgPath, price)
 	elem.src = imgPath;
 	pizzaDiv.appendChild(elem);
 
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
+	breakLine(pizzaDiv);
 
 	var priceText = document.createTextNode("Preis: " + price);
 	pizzaDiv.appendChild(priceText);
 
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
-
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
+	breakLine(pizzaDiv);
+	breakLine(pizzaDiv);
 
 	var btn = document.createElement("button");
 	btn.setAttribute('onclick',"addToCart(" + id + ")");
 	btn.innerHTML = "Pizza hinzuf&uuml;gen";
 	pizzaDiv.appendChild(btn);
 
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
-
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
-
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
-
-	lb = document.createElement("br");
-	pizzaDiv.appendChild(lb);
+	breakLine(pizzaDiv);
+	breakLine(pizzaDiv);
+	breakLine(pizzaDiv);
+	breakLine(pizzaDiv);
 	
 	document.getElementById("container").appendChild(pizzaDiv);
 }
@@ -71,20 +59,49 @@ function addPizzaToCart(artNr, amount)
 
 			var amountText = document.createTextNode("; Anzahl: " + amount);
 			div.appendChild(amountText);
-
+			
 			var btn = document.createElement("button");
 			btn.setAttribute('onclick',"deleteFromCart(" + products[i].artNr + ")");
 			btn.innerHTML = '&#10006';
 			div.appendChild(btn);
-			
-			
+			/////////////////////////////////////////////////checkbox kacke
+			var extraDiv = document.createElement("div");
+			extraDiv.className = "multiselect";
+				var selectDiv = document.createElement("div");
+				selectDiv.className = "selectBox";
+					var selector = document.createElement("SELECT");
+					var option = document.createElement("option");
+					option.text = "extras";
+					selector.add(option);
+					var overDiv = document.createElement("div");
+					overDiv.className = "overSelect";
+				selectDiv.setAttribute('onclick', "showCheckboxes()");
+				selectDiv.appendChild(selector);
+				selectDiv.appendChild(overDiv);
+				
+				var checkboxes = document.createElement("div");
+				checkboxes.id = "checkboxes";
+					var cheese = document.createElement("INPUT");
+					cheese.setAttribute("type", "checkbox");
+					cheese.id = "one";
+					var label = document.createElement("label");
+					label.value = "yo";
+					label.htmlFor = "one";
+					var schrooms = document.createElement("INPUT");
+					schrooms.setAttribute("type", "checkbox");
+				checkboxes.appendChild(cheese);
+				checkboxes.appendChild(schrooms);
+			extraDiv.appendChild(selectDiv);
+			extraDiv.appendChild(checkboxes);
+			div.appendChild(extraDiv);
+			////////////////////////////////////////////////////////////////
 
 			document.getElementById("container").appendChild(div);
-
+			//http://www.dyn-web.com/tutorials/forms/checkbox/group.php checkbox handling
 			return;
 		}    
     }
-div class="multiselect">
+/*div class="multiselect">
     <div class="selectBox" onclick="showCheckboxes()">
       <select>
         <option>Select an option</option>
@@ -99,18 +116,23 @@ div class="multiselect">
       <label for="three">
         <input type="checkbox" id="three" />Third checkbox</label>
     </div>
-  </div>
+  </div> */
+}
+
+function breakLine(div) {
+	br = document.createElement("br");
+	div.appendChild(br);
 }
 
 function showCheckboxes() {
-  var checkboxes = document.getElementById("checkboxes");
-  if (!expanded) {
-    checkboxes.style.display = "block";
-    expanded = true;
-  } else {
-    checkboxes.style.display = "none";
-    expanded = false;
-  }
+	var checkboxes = document.getElementById("checkboxes");
+	if (!expanded) {
+		checkboxes.style.display = "block";
+		expanded = true;
+	} else {
+		checkboxes.style.display = "none";
+		expanded = false;
+	}
 }
 
 function addToCart(artNr) 
