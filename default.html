@@ -6,15 +6,16 @@
 
     <link rel="stylesheet" href="css/default.css">
     <link rel="reset" href="css/reset.min.css">
+    <script type="text/javascript" src="js/default.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
     <header>
       <nav>
-        <button class="header-button-right" type="button" name="default">Startseite</button>
+        <button class="header-button-right" type="button" name="default" onclick="loadMain()">Startseite</button>
         <button class="header-button-left" type="button" name="LoginLogout">Login</button>
         <button class="header-button-left" type="button" name="order-history">Meine Bestellungen</button>
-        <button class="header-button-left" type="button" name="shopping-cart">Warenkorb</button>
+        <button class="header-button-left" type="button" name="shopping-cart" onclick="loadCart()">Warenkorb</button>
       </nav>
     </header>
 
@@ -24,15 +25,9 @@
     <div id="main-container">
       <figure class="picture">
         <img src="img/Pizza_Tonno.jpg" alt="Pizza Tonno">
-        <figcaption>Pizza Tonno</figcaption>
-      </figure>
-      <figure class="picture">
-        <img src="img/Pizza_Tonno.jpg" alt="Pizza Tonno">
-        <figcaption>Pizza Tonno</figcaption>
-      </figure>
-      <figure class="picture">
-        <img src="img/Pizza_Tonno.jpg" alt="Pizza Tonno">
-        <figcaption>Pizza Tonno</figcaption>
+        <figcaption id="caption">Pizza Tonno</figcaption>
+        <div id="prize">6€</div>
+        <button id="add-to-cart" type="button" name="add-to-cart">Zum Wahrenkorb hinzufügen</button>
       </figure>
     </div>
   </body>
