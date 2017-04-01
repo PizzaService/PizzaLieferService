@@ -1,21 +1,31 @@
-[{"artNr":1,
-	"name":"Pizza Margherita",
-	"price":6.00,
-	"description":"Tomatensauce, Käse",
-	"image":"images/margherita.png"},
-{"artNr":2,
-	"name":"Pizza Salami",
-	"price":7.00,
-	"description":"Tomatensauce, Salami, Käse",
-	"image":"images/salami.png"},
-{"artNr":3,
-	"name":"Pizza Schinken",
-	"price":7.00,
-	"description":"Tomatensauce, Schinken, Käse",
-	"image":"images/schinken.png"},
-{"artNr":4,
-	"name":"Pizza Hawaii",
-	"price":7.50,
-	"description":"Tomatensauce, Schinken, Ananas, Käse",
-	"image":"images/hawaii.png"}]
+[
+  {
+    "artNr": 1,
+    "name": "Pizza Margherita",
+    "price": 6.00,
+    "description": "Tomatensauce, Käse",
+    "image": "images/margherita.png"
+  },
+  {
+    "artNr": 2,
+    "name": "Pizza Salami",
+    "price": 7.00,
+    "description": "Tomatensauce, Salami, Käse",
+    "image": "images/salami.png"
+  },
+  {
+    "artNr": 3,
+    "name": "Pizza Schinken",
+    "price": 7.00,
+    "description": "Tomatensauce, Schinken, Käse",
+    "image": "images/schinken.png"
+  },
+  {
+    "artNr": 4,
+    "name": "Pizza Hawaii",
+    "price": 7.50,
+    "description": "Tomatensauce, Schinken, Ananas, Käse",
+    "image": "images/hawaii.png"
+  }
+]
 	

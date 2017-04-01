@@ -1,5 +1,6 @@
 var cart = [];
 var products = [];
+var ingredients = [];
 var cartCnt = 0;
 var expanded = false;
 
@@ -39,7 +40,7 @@ function addPizza(id, name, imgPath, price)
 	document.getElementById("container").appendChild(pizzaDiv);
 }
 
-function addPizzaToCart(artNr, amount)
+function addPizzaToCart(artNr, id)
 {
     for (var i = 0; i < products.length; i++)
     {
@@ -51,50 +52,40 @@ function addPizzaToCart(artNr, amount)
 		*/if (products[i].artNr == artNr)
 		{
 			var div = document.createElement("div");
-			div.id = products[i].artNr;
+			div.id = id;
 			div.innerHTML = products[i].name;
 
 			var priceText = document.createTextNode("; Preis: " + products[i].price);
 			div.appendChild(priceText);
-
-			var amountText = document.createTextNode("; Anzahl: " + amount);
-			div.appendChild(amountText);
 			
-			var btn = document.createElement("button");
-			btn.setAttribute('onclick',"deleteFromCart(" + products[i].artNr + ")");
-			btn.innerHTML = '&#10006';
-			div.appendChild(btn);
 			/////////////////////////////////////////////////checkbox kacke
 			var extraDiv = document.createElement("div");
 			extraDiv.className = "multiselect";
 				var selectDiv = document.createElement("div");
 				selectDiv.className = "selectBox";
-					var selector = document.createElement("SELECT");
-					var option = document.createElement("option");
-					option.text = "extras";
+					var selector = document.createElement("select");
+					    var option = document.createElement("option");
+					    option.text = "extras";
 					selector.add(option);
 					var overDiv = document.createElement("div");
 					overDiv.className = "overSelect";
-				selectDiv.setAttribute('onclick', "showCheckboxes()");
+				selectDiv.setAttribute('onclick', "showCheckboxes("+id+")");
 				selectDiv.appendChild(selector);
 				selectDiv.appendChild(overDiv);
 				
 				var checkboxes = document.createElement("div");
-				checkboxes.id = "checkboxes";
-					var cheese = document.createElement("INPUT");
-					cheese.setAttribute("type", "checkbox");
-					cheese.id = "one";
-					var label = document.createElement("label");
-					label.value = "yo";
-					label.htmlFor = "one";
-					var schrooms = document.createElement("INPUT");
-					schrooms.setAttribute("type", "checkbox");
-				checkboxes.appendChild(cheese);
-				checkboxes.appendChild(schrooms);
+				checkboxes.id = "checkboxes " + id;
+				checkboxes.style.display = "none";
+				buildIngredientCheckboxes(checkboxes, id);
 			extraDiv.appendChild(selectDiv);
 			extraDiv.appendChild(checkboxes);
 			div.appendChild(extraDiv);
-			////////////////////////////////////////////////////////////////
+		    ////////////////////////////////////////////////////////////////
+
+			var btn = document.createElement("button");
+			btn.setAttribute('onclick', "deleteFromCart(" + id + ")");
+			btn.innerHTML = '&#10006';
+			div.appendChild(btn);
 
 			document.getElementById("container").appendChild(div);
 			//http://www.dyn-web.com/tutorials/forms/checkbox/group.php checkbox handling
@@ -114,9 +105,23 @@ function addPizzaToCart(artNr, amount)
       <label for="two">
         <input type="checkbox" id="two" />Second checkbox</label>
       <label for="three">
-        <input type="checkbox" id="three" />Third checkbox</label>
+        <input type="checkbox" id="three" onchange="toggleIngredient(id)"/>Third checkbox</label>
     </div>
   </div> */
+}
+
+function buildIngredientCheckboxes(div, idInCart) {
+    for(var i = 0; i< ingredients.length; i++){
+        var label = document.createElement("label");
+        label.htmlFor = "ckeck " + ingredients[i].artNr;
+            var checkbox = document.createElement("input");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.id = "check " + idInCart + " " + ingredients[i].artNr;
+            checkbox.setAttribute("onchange", "changeIngredient(" + ingredients[i].artNr + ", " + idInCart + ")");
+            label.appendChild(checkbox);
+        label.innerHTML += ingredients[i].name + " " + ingredients[i].price + "€";
+        div.appendChild(label);
+    }
 }
 
 function breakLine(div) {
@@ -124,8 +129,8 @@ function breakLine(div) {
 	div.appendChild(br);
 }
 
-function showCheckboxes() {
-	var checkboxes = document.getElementById("checkboxes");
+function showCheckboxes(id) {
+	var checkboxes = document.getElementById("checkboxes " + id);
 	if (!expanded) {
 		checkboxes.style.display = "block";
 		expanded = true;
@@ -135,19 +140,34 @@ function showCheckboxes() {
 	}
 }
 
-function addToCart(artNr) 
-{
-    if (cart[artNr])
-        cart[artNr]++;
-    else
-        cart[artNr] = 1;
+function changeIngredient(ingArtNr, idInCart) {
+    var checkbox = document.getElementById("check " + idInCart + " " + ingArtNr)
+    if (checkbox.checked) {
+        cart[idInCart].iArtNr.push(ingArtNr);
+    }
+    else {
+        for (var i = 0; i < cart[idInCart].iArtNr.length; i++) {
+            if (cart[idInCart].iArtNr[i] == ingArtNr)
+                cart[idInCart].iArtNr.splice(i, 1);
+        }
+    }
+}
+
+function setIngredients(idInCart, ingrToSet){
+    for (var i = 0; i < ingrToSet.length; i++) {
+        var checkbox = document.getElementById("check " + idInCart + " " + ingrToSet[i]);
+        checkbox.setAttribute("checked", true);
+    }
+}
+
+function addToCart(artNr) {
+    cart.push({"pArtNr" : artNr, "iArtNr" : []});
     cartCnt++;
     updateCartCount();
 }
 
-function deleteFromCart(artNr) {
-    if (--cart[artNr] == 0)
-        cart[artNr] = null;
+function deleteFromCart(index) {
+    cart.splice(index,1);
     loadCart();
     cartCnt--;
     updateCartCount();
@@ -166,10 +186,6 @@ function updateCartCount() {
     } else {
         document.getElementById("btnCart").innerHTML = "Warenkorb";
     }
-}
-
-function clearCartCount() {
-    document.getElementById("btnCart").innerHTML = document.getElementById("btnCart").innerHTML.slice(0,9);
 }
 
 function loadJSON(path, success, error)
@@ -191,17 +207,20 @@ function loadJSON(path, success, error)
     xhr.send(null);
 }
 
+function loadCheck() {
+    document.getElementById("container").innerHTML = "";
+
+}
+
 function loadCart()
 {
     document.getElementById("container").innerHTML = "";
 
     for (var i = 0; i < cart.length; i++) {
-        if(cart[i])
-        {
-            addPizzaToCart(i, cart[i]);
-        }
+        addPizzaToCart(cart[i].pArtNr, i);
+        setIngredients(i, cart[i].iArtNr);
     }
-    document.getElementById("container").innerHTML += "<button onclick=\"clearCart()\">Warenkorb leeren</button>"
+    document.getElementById("container").innerHTML += "<button onclick=\"loadCheck()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
 }
 
 function loadMain()
@@ -214,21 +233,17 @@ function loadMain()
 }
 
 window.onload = function () {
-    var startPath = document.getElementsByTagName("script")[0].src;
-    var cartPath = document.getElementsByTagName("script")[0].src;
-    startPath = startPath.slice(0, -10) + "json/products.json";
-    cartPath = cartPath.slice(0, -10) + "json/cart.json";
+    var rootPath = document.getElementsByTagName("script")[0].src.slice(0, -10);
+    var productsPath = rootPath + "json/products.json";
+    var ingredientsPath = rootPath + "json/ingredients.json";
 
-    loadJSON(startPath, function (data) { products = data; loadMain(); }, function (xhr) { console.log(xhr) });
+    loadJSON(productsPath, function (data) { products = data; loadMain(); }, function (xhr) { console.log(xhr) });
+    loadJSON(ingredientsPath, function (data) { ingredients = data; }, function (xhr) { console.log(xhr) });
     
     if (localStorage.getItem("CartPizzaService"))
     {
         cart = JSON.parse(localStorage.getItem("CartPizzaService"));
-        for (var i = 0; i < cart.length; i++)
-        {
-            if (cart[i])
-                cartCnt += cart[i];
-        }
+        cartCnt = cart.length;
         updateCartCount();
     }
 }
@@ -238,4 +253,6 @@ window.onbeforeunload = function () {
     {
         window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));
     }
+    /*if(Object.keys(cart).length !== 0)
+        window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));*/
 }
