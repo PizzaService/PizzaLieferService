@@ -28,7 +28,7 @@ button.header-button-left, button.header-button-right {
   padding: 0;
 }
 
-button.header-button-left:hover, button.header-button-right:hover{
+button.header-button-left:hover, button.header-button-right:hover {
   background: #55b569;
 }
 
@@ -37,7 +37,7 @@ button.header-button-right {
   margin: 10px 0px 10px 10px;
 }
 
-button.header-button-left {
+button.header-button-left{
   float: right;
   margin: 10px 10px 10px 0px;
 }
