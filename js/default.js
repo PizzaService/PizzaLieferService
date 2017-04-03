@@ -166,6 +166,35 @@ function addToCart(artNr) {
     updateCartCount();
 }
 
+function addToBill(pArtNr, iArtNr, idInCart) {
+    var productSum = 0.0;
+    var htmlString = "";
+
+    for(var i = 0; i< products.length; i++){
+        if(products[i].artNr == pArtNr){
+            htmlString += "<div id=\"bill " + idInCart + "\">" + products[i].name + "; Extra-Zutaten: ";
+            productSum += products[i].price
+            break;
+        }
+    }
+
+    for(var i = 0; i< iArtNr.length; i++){
+        for(var j = 0; j<ingredients.length; j++){
+            if(ingredients[j].artNr == iArtNr[i]){
+                htmlString += ingredients[j].name + ", ";
+                productSum += ingredients[j].price;
+                break;
+            }
+        }
+    }
+    htmlString = htmlString.substring(0, htmlString.length - 2);
+
+    htmlString += " ............. Gesamt Preis: " + productSum + "€</div>";
+    document.getElementById("container").innerHTML += htmlString;
+
+    return productSum;
+}
+
 function deleteFromCart(index) {
     cart.splice(index,1);
     loadCart();
@@ -207,9 +236,13 @@ function loadJSON(path, success, error)
     xhr.send(null);
 }
 
-function loadCheck() {
-    document.getElementById("container").innerHTML = "";
-
+function loadBill() {
+    document.getElementById("container").innerHTML = "<h1>Rechnung</h1>";
+    var sum = 0.0;
+    for (var i = 0; i < cart.length; i++)
+        sum += addToBill(cart[i].pArtNr, cart[i].iArtNr, i);
+    
+    document.getElementById("container").innerHTML += "<h2>Total Price: " + sum + "€</h2>";
 }
 
 function loadCart()
@@ -220,7 +253,7 @@ function loadCart()
         addPizzaToCart(cart[i].pArtNr, i);
         setIngredients(i, cart[i].iArtNr);
     }
-    document.getElementById("container").innerHTML += "<button onclick=\"loadCheck()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
+    document.getElementById("container").innerHTML += "<button onclick=\"loadBill()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
 }
 
 function loadMain()
@@ -239,9 +272,8 @@ window.onload = function () {
 
     loadJSON(productsPath, function (data) { products = data; loadMain(); }, function (xhr) { console.log(xhr) });
     loadJSON(ingredientsPath, function (data) { ingredients = data; }, function (xhr) { console.log(xhr) });
-    
-    if (localStorage.getItem("CartPizzaService"))
-    {
+
+    if (localStorage.getItem("CartPizzaService")) {
         cart = JSON.parse(localStorage.getItem("CartPizzaService"));
         cartCnt = cart.length;
         updateCartCount();
@@ -249,10 +281,10 @@ window.onload = function () {
 }
 
 window.onbeforeunload = function () {
-    if (cart.length != 0)
-    {
+    if (cart.length != 0) {
         window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));
+    } else {
+        window.localStorage.clear();
     }
-    /*if(Object.keys(cart).length !== 0)
-        window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));*/
+
 }
