@@ -91,7 +91,7 @@ img {
     cursor: pointer;
 }
 
-#prize {
+#selection-prize {
     float: right;
     margin-right:5px;
 }
@@ -124,7 +124,7 @@ img {
   margin: 30px;
 }
 
-#prize {
+#shopping-cart-prize {
   font-size:20px;
   margin: 30px;
 }
