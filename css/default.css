@@ -16,7 +16,7 @@ header {
   border-bottom-right-radius: 10px;
 }
 
-button.header-button-left, button.header-button-right{
+button.header-button-left, button.header-button-right {
   height: 30px;
   width: 150px;
   cursor: pointer;
