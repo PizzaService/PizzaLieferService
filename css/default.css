@@ -16,7 +16,7 @@ header {
   border-bottom-right-radius: 10px;
 }
 
-button.header-button-left, button.header-button-right {
+button.header-button-left, button.header-button-right{
   height: 30px;
   width: 150px;
   cursor: pointer;
@@ -37,9 +37,21 @@ button.header-button-right {
   margin: 10px 0px 10px 10px;
 }
 
-button.header-button-left{
+button.header-button-left {
   float: right;
   margin: 10px 10px 10px 0px;
+}
+
+button.header-button-cart {
+  position: absolute;
+  top: 10px;
+  left: 1900px;
+  box-shadow: none;
+  border: none;
+  background-color: #555555;
+  color: white;
+  border-radius: 5px;
+  padding: 7px 4px;
 }
 
 #heading-container {
