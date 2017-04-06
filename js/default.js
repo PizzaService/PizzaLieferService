@@ -4,7 +4,7 @@ var ingredients = [];
 var cartCnt = 0;
 var expanded = false;
 
-function addPizza(pId, pName, pImgPath, pPrice)
+function addPizzaToStart(pId, pName, pImgPath, pPrice)
 {
     var pizza = newFigure();
     pizza.setAttribute("id", pId);
@@ -14,13 +14,14 @@ function addPizza(pId, pName, pImgPath, pPrice)
 	img.setAttribute("src", pImgPath);
 	pizza.appendChild(img);
 
-	var name = newFigcaption();
+	var name = newP();
+	name.setAttribute("class", "productName");
 	name.innerHTML = pName;
 	pizza.appendChild(name);
 
 	var price = newP();
 	price.setAttribute("class", "productPrice");
-	price.innerHTML = pPrice.toFixed(2) + " €";
+	price.innerHTML = pPrice.toFixed(2) + " &#8364;";
 	pizza.appendChild(price);
 
 	var addToCart = newButton();
@@ -54,7 +55,7 @@ function addPizzaToCart(pArtNr, pId)
 
  		    var selectBox = newDiv();
  		    selectBox.setAttribute("class", "selectBox");
- 		    selectBox.setAttribute("onclick", "showCheckboxes(" + pId + ")");
+ 		    selectBox.setAttribute("onclick", "showCheckboxes(this, " + pId + ")");
 
  		    var select = newSelect();
 
@@ -77,7 +78,8 @@ function addPizzaToCart(pArtNr, pId)
  		    checkboxes.style.position = "relative";
  		    checkboxes.style.zIndex = "1000";
  		    buildIngredientCheckboxes(checkboxes, pId);
- 		    pizza.appendChild(checkboxes);
+ 		    multiselect.appendChild(checkboxes);
+ 		    pizza.appendChild(multiselect);
 
  		    var btnDelete = newButton();
  		    btnDelete.setAttribute("type", "button");
@@ -87,7 +89,7 @@ function addPizzaToCart(pArtNr, pId)
 
  		    var price = newP();
  		    price.setAttribute("class", "cartPrice");
- 		    price.innerHTML = products[i].price.toFixed(2) + " €";
+ 		    price.innerHTML = products[i].price.toFixed(2) + " &#8364;";
  		    pizza.appendChild(price);
 
  		    var priceNameTag = newP();
@@ -107,46 +109,92 @@ function buildIngredientCheckboxes(pCheckboxes, pIdInCart) {
 
         var checkbox = newInput();
         checkbox.setAttribute("type", "checkbox");
-        checkbox.setAttribute("id", "check_" + pIdInCart + "_" + ingredients[i].artNr);
-        checkbox.setAttribute("onchange", "changeIngredient(" + checkbox.id + ")");
+        checkbox.setAttribute("id", "checkbox_" + pIdInCart + "_" + ingredients[i].artNr);
+        checkbox.setAttribute("onchange", "toggleIngredient(" + pIdInCart + ", " + ingredients[i].artNr + ")");
         label.appendChild(checkbox);
         label.innerHTML += ingredients[i].name;
 
         var labelPrice = newLabel();
         labelPrice.setAttribute("class", "ingredientPrice");
-        labelPrice.innerHTML = "+" + ingredients[i].price.toFixed(2) + " €";
+        labelPrice.innerHTML = "+" + ingredients[i].price.toFixed(2) + " &#8364;";
         label.appendChild(labelPrice);
         pCheckboxes.appendChild(label);
     }
 }
 
-function showCheckboxes(pId) {
+function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
+    var productSum = 0.0;
+    var ingredientsString = "";
+    
+    var pizza = newDiv();
+    pizza.setAttribute("class", "productBill");
+
+    for (var i = 0; i < products.length; i++) {
+        if (products[i].artNr == pArtNr) {
+            var name = newP();
+            name.setAttribute("class", "billProductName");
+            name.innerHTML = products[i].name;
+            pizza.appendChild(name);
+
+            productSum += products[i].price
+            break;
+        }
+    }
+
+    for (var i = 0; i < iArtNr.length; i++) {
+        for (var j = 0; j < ingredients.length; j++) {
+            if (ingredients[j].artNr == iArtNr[i]) {
+                ingredientsString += ingredients[j].name + ", ";
+                productSum += ingredients[j].price;
+                break;
+            }
+        }
+    }
+
+    if (ingredientsString != "") {
+        var ingredientsNameTag = newP();
+        ingredientsNameTag.setAttribute("class", "billIngredientsNameTag");
+        ingredientsNameTag.innerHTML = "Extra Zutaten:";
+        pizza.appendChild(ingredientsNameTag);
+
+        var ingredientsText = newP();
+        ingredientsText.setAttribute("class", "billIngredients");
+        ingredientsText.innerHTML = ingredientsString.substring(0, ingredientsString.length - 2);
+        pizza.appendChild(ingredientsText);
+    }
+
+    pBill.appendChild(pizza);
+
+    return productSum;
+}
+
+function showCheckboxes(pSelect, pId) {
 	var checkboxes = document.getElementById("checkboxes_" + pId);
 	if (!expanded) {
-		checkboxes.style.display = "block";
+	    checkboxes.style.display = "block";
 		expanded = true;
 	} else {
-		checkboxes.style.display = "none";
+	    checkboxes.style.display = "none";
 		expanded = false;
 	}
 }
 
-function changeIngredient(pCheckboxId) {
-    var checkbox = document.getElementById(pCheckboxId)
+function toggleIngredient(pIdInCart, pIngArtNr) {
+    var checkbox = getElement("checkbox_" + pIdInCart + "_" + pIngArtNr);
     if (checkbox.checked) {
-        cart[idInCart].iArtNr.push(ingArtNr);
+        cart[pIdInCart].iArtNr.push(pIngArtNr);
     }
     else {
-        for (var i = 0; i < cart[idInCart].iArtNr.length; i++) {
-            if (cart[idInCart].iArtNr[i] == ingArtNr)
-                cart[idInCart].iArtNr.splice(i, 1);
+        for (var i = 0; i < cart[pIdInCart].iArtNr.length; i++) {
+            if (cart[pIdInCart].iArtNr[i] == pIngArtNr)
+                cart[pIdInCart].iArtNr.splice(i, 1);
         }
     }
 }
 
-function setIngredients(idInCart, ingrToSet){
-    for (var i = 0; i < ingrToSet.length; i++) {
-        var checkbox = document.getElementById("check_" + idInCart + "_" + ingrToSet[i]);
+function setIngredients(idInCart, pIngToSet) {
+    for (var i = 0; i < pIngToSet.length; i++) {
+        var checkbox = getElement("checkbox_" + idInCart + "_" + pIngToSet[i]);
         checkbox.setAttribute("checked", true);
     }
 }
@@ -155,35 +203,6 @@ function addToCart(artNr) {
     cart.push({"pArtNr" : artNr, "iArtNr" : []});
     cartCnt++;
     updateCartCount();
-}
-
-function addToBill(pArtNr, iArtNr, idInCart) {
-    var productSum = 0.0;
-    var htmlString = "";
-
-    for(var i = 0; i< products.length; i++){
-        if(products[i].artNr == pArtNr){
-            htmlString += "<div id=\"bill " + idInCart + "\">" + products[i].name + "; Extra-Zutaten: ";
-            productSum += products[i].price
-            break;
-        }
-    }
-
-    for(var i = 0; i< iArtNr.length; i++){
-        for(var j = 0; j<ingredients.length; j++){
-            if(ingredients[j].artNr == iArtNr[i]){
-                htmlString += ingredients[j].name + ", ";
-                productSum += ingredients[j].price;
-                break;
-            }
-        }
-    }
-    htmlString = htmlString.substring(0, htmlString.length - 2);
-
-    htmlString += " ............. Gesamt Preis: " + productSum + "€</div>";
-    document.getElementById("main-container").innerHTML += htmlString;
-
-    return productSum;
 }
 
 function deleteFromCart(index) {
@@ -202,9 +221,9 @@ function clearCart() {
 
 function updateCartCount() {
     if(cartCnt != 0) {
-        document.getElementById("btnCartCount").innerHTML = cartCnt;
+        getElement("btnCartCount").innerHTML = cartCnt;
     } else {
-        document.getElementById("btnCartCount").innerHTML = 0;
+        getElement("btnCartCount").innerHTML = 0;
     }
 }
 
@@ -228,31 +247,43 @@ function loadJSON(path, success, error)
 }
 
 function loadBill() {
-    document.getElementById("main-container").innerHTML = "<h1>Rechnung</h1>";
+    clearMainframe();
+
+    var bill = newDiv();
+    bill.setAttribute("class", "bill");
+
     var sum = 0.0;
     for (var i = 0; i < cart.length; i++)
-        sum += addToBill(cart[i].pArtNr, cart[i].iArtNr, i);
+        sum += addPizzaToBill(cart[i].pArtNr, cart[i].iArtNr, i, bill);
     
-    document.getElementById("main-container").innerHTML += "<h2>Total Price: " + sum + "€</h2>";
+    var billSum = newH1();
+    billSum.setAttribute("class", "billSum");
+    billSum.innerHTML = sum.toFixed(2) + " &#8364;";
+    bill.appendChild(billSum);
+
+    var billSumNameTag = newH1();
+    billSumNameTag.innerHTML = "Gesamt Preis:"
 }
 
 function loadCart()
 {
-    document.getElementById("main-container").innerHTML = "";
+    setCartTitle();
+    clearMainframe();
 
     for (var i = 0; i < cart.length; i++) {
         addPizzaToCart(cart[i].pArtNr, i);
         setIngredients(i, cart[i].iArtNr);
     }
-    document.getElementById("main-container").innerHTML += "<button onclick=\"loadBill()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
+    getElement("main-container").innerHTML += "<button onclick=\"loadBill()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
 }
 
 function loadMain()
 {
-    document.getElementById("main-container").innerHTML = "";
+    setStartTitle();
+    clearMainframe();
 	for(var i = 0; i < products.length; i++)
 	{
-		addPizza(products[i].artNr, products[i].name, products[i].image, products[i].price);
+		addPizzaToStart(products[i].artNr, products[i].name, products[i].image, products[i].price);
 	}
 }
 

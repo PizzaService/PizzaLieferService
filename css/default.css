@@ -102,7 +102,7 @@ nav button:hover {
     height: 15%;
     margin: 0.6%;
     padding: 0.2%;
-    background-color: rgba(0,0,0,0.1);
+    background-color: #ffffff;
     border-radius: 5px;
 }
 
@@ -125,14 +125,15 @@ nav button:hover {
     margin: 2.5%;
 }
 
-.productStart p {
-    float: right;
-    margin-right: 5px;
-}
-
-.productStart figcaption {
+.productStart .productName{
     float: left;
     margin-left: 5px;
+}
+
+.productStart .productPrice {
+    float: right;
+    margin-right: 5px;
+	
 }
 
 /*--------------------------------section Startseite------------------------------------------------------------*/
@@ -165,13 +166,12 @@ nav button:hover {
 .productCart p.cartPrice {
     float: right;
     margin: 30px 30px 30px 0px;
-    width: 100px;
+    width: 60px;
     text-align: right;
 }
 
 .productCart p.cartPriceNameTag {
     float: right;
-    width: 100px;
 }
 
 .productCart button {
@@ -207,7 +207,7 @@ nav button:hover {
     border: none;
     border-radius: 5px 0px 0px 5px;
     box-shadow: none;
-    background-color: rgba(0,0,0,0.1);
+    background-color: #e6e6e6;
 }
 
 .overSelect {
@@ -221,7 +221,7 @@ nav button:hover {
 #checkboxes {
     display: none;
     background-color: white;
-    border: 1px #dadada solid;
+    border: 1px #e6e6e6 solid;
     position: relative;
     z-index: 1000;
 }
@@ -239,4 +239,57 @@ nav button:hover {
     margin-right: 2px;
 }
 
+
+/*--------------------------------section Rechnung------------------------------------------------------------*/
+
+.bill {
+    float: left;
+    display: inline;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+}
+
+.productBill {
+    float: left;
+    display: inline;
+    width: 100%;
+}
+
+.productBill p{
+    float: left;
+    margin-left:15px;
+}
+
+.productBill p.billProductName{
+    width: 200px;
+}
+
+.productBill p.billIngredients{
+    margin-left: 5%;
+}
+
+.productBill p.billProductSum{
+    float: right;
+    text-align: right;
+    margin-left: 0px;
+    margin-right: 20px;
+    width: 60px;
+}
+
+.productBill p.billProductSumNameTag{
+    float: right;
+}
+
+.bill h1{
+    float: right;
+    margin-left: 15px;
+}
+.bill h1.billSum{
+    text-align: right;
+    margin-left: 0px;
+    margin-right: 20px;
+    width: 150px;
+}
 

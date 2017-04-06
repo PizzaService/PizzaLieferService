@@ -2,30 +2,65 @@
   {
     "artNr": 1,
     "name": "Pizza Margherita",
-    "price": 6.00,
+    "price": 7.40,
     "description": "Tomatensauce, Käse",
-    "image": "images/margherita.png"
+    "image": "img/Margherita.png"
   },
   {
     "artNr": 2,
     "name": "Pizza Salami",
-    "price": 7.00,
+    "price": 8.10,
     "description": "Tomatensauce, Salami, Käse",
-    "image": "images/salami.png"
+    "image": "img/Salami.png"
   },
   {
     "artNr": 3,
-    "name": "Pizza Schinken",
-    "price": 7.00,
+    "name": "Pizza Prosciutto",
+    "price": 8.10,
     "description": "Tomatensauce, Schinken, Käse",
-    "image": "images/schinken.png"
+    "image": "img/Prosciutto.png"
   },
   {
-    "artNr": 4,
+    "artNr": 5,
+    "name": "Pizza Bruschetta",
+    "price": 8.60,
+    "description": "Tomatensauce, Tomaten, Basilikum, Käse",
+    "image": "img/Bruschetta.png"
+  },
+  {
+    "artNr": 6,
     "name": "Pizza Hawaii",
-    "price": 7.50,
-    "description": "Tomatensauce, Schinken, Ananas, Käse",
-    "image": "images/hawaii.png"
+    "price": 8.80,
+    "description": "Tomatensauce, Schninken, Ananas, Käse",
+    "image": "img/Hawaii.png"
+  },
+  {
+    "artNr": 7,
+    "name": "Pizza Sucuk",
+    "price": 9.10,
+    "description": "Tomatensauce, Sucuk, Oliven, Feta, Käse",
+    "image": "img/Sucuk.png"
+  },
+  {
+    "artNr": 8,
+    "name": "Pizza Tonno",
+    "price": 9.70,
+    "description": "Tomatensauce, Thunfisch, Zwiebeln, Käse",
+    "image": "img/Tonno.png"
+  },
+  {
+    "artNr": 9,
+    "name": "Pizza Diavolo",
+    "price": 10.40,
+    "description": "Tomatensauce, Pilze, Scharfe Salami, Jalape&ntilde;o, Käse",
+    "image": "img/Diavolo.png"
+  },
+  {
+    "artNr": 10,
+    "name": "Pizza Frutti di Mare",
+    "price": 10.70,
+    "description": "Tomatensauce, Schrips, Tomaten, Zwiebeln, Lauch, Käse",
+    "image": "img/Frutti_di_Mare.png"
   }
 ]
 	
