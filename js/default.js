@@ -4,133 +4,124 @@ var ingredients = [];
 var cartCnt = 0;
 var expanded = false;
 
-function addPizza(id, name, imgPath, price)
+function addPizza(pId, pName, pImgPath, pPrice)
 {
-	/*document.getElementById("container").innerHTML +="<br /><div id=\""+id+"\"><p>"+name+"</p><br /><img width=\"200px\" height=\"200px\" src=\""+imgPath+"\" /><br /><p>preis: "+price+"</p><br /><button onclick=\"addToCart("+id+")\">Pizza hinzuf&uuml;gen</button></div>";*/
-	var pizzaDiv = document.createElement("div");
-	pizzaDiv.id = id;
-	pizzaDiv.innerHTML = name;
+    var pizza = newFigure();
+    pizza.setAttribute("id", pId);
+    pizza.setAttribute("class", "productStart");
 
-	breakLine(pizzaDiv);
+	var img = newImg();
+	img.setAttribute("src", pImgPath);
+	pizza.appendChild(img);
 
-	var elem = document.createElement("img");
-	elem.setAttribute("height", "200");
-	elem.setAttribute("width", "200");
-	elem.src = imgPath;
-	pizzaDiv.appendChild(elem);
+	var name = newFigcaption();
+	name.innerHTML = pName;
+	pizza.appendChild(name);
 
-	breakLine(pizzaDiv);
+	var price = newP();
+	price.setAttribute("class", "productPrice");
+	price.innerHTML = pPrice.toFixed(2) + " €";
+	pizza.appendChild(price);
 
-	var priceText = document.createTextNode("Preis: " + price);
-	pizzaDiv.appendChild(priceText);
+	var addToCart = newButton();
+	addToCart.setAttribute("type", "button");
+	addToCart.setAttribute("onclick", "addToCart(" + pId + ")");
+	addToCart.innerHTML = "zum Warenkorb hinzuf&uuml;gen";
+	pizza.appendChild(addToCart);
 
-	breakLine(pizzaDiv);
-	breakLine(pizzaDiv);
-
-	var btn = document.createElement("button");
-	btn.setAttribute('onclick',"addToCart(" + id + ")");
-	btn.innerHTML = "Pizza hinzuf&uuml;gen";
-	pizzaDiv.appendChild(btn);
-
-	breakLine(pizzaDiv);
-	breakLine(pizzaDiv);
-	breakLine(pizzaDiv);
-	breakLine(pizzaDiv);
-	
-	document.getElementById("container").appendChild(pizzaDiv);
+	appendToMainframe(pizza);
 }
 
-function addPizzaToCart(artNr, id)
+function addPizzaToCart(pArtNr, pId)
 {
     for (var i = 0; i < products.length; i++)
     {
-        /*if (products[i].artNr == artNr)
-        {
-            document.getElementById("container").innerHTML += "<div id=\"" + products[i].artNr + "\">" + products[i].name + ";\t Preis: " + products[i].price + ";\t Anzahl: " + amount + "<button onclick=\"deleteFromCart(" + products[i].artNr + ")\">&#10006;</button></div>";
-            return;
-        }
-		*/if (products[i].artNr == artNr)
-		{
-			var div = document.createElement("div");
-			div.id = id;
-			div.innerHTML = products[i].name;
+ 		if (products[i].artNr == pArtNr)
+ 		{
+ 		    var pizza = newDiv();
+ 		    pizza.setAttribute("class", "productCart");
 
-			var priceText = document.createTextNode("; Preis: " + products[i].price);
-			div.appendChild(priceText);
-			
-			/////////////////////////////////////////////////checkbox kacke
-			var extraDiv = document.createElement("div");
-			extraDiv.className = "multiselect";
-				var selectDiv = document.createElement("div");
-				selectDiv.className = "selectBox";
-					var selector = document.createElement("select");
-					    var option = document.createElement("option");
-					    option.text = "extras";
-					selector.add(option);
-					var overDiv = document.createElement("div");
-					overDiv.className = "overSelect";
-				selectDiv.setAttribute('onclick', "showCheckboxes("+id+")");
-				selectDiv.appendChild(selector);
-				selectDiv.appendChild(overDiv);
-				
-				var checkboxes = document.createElement("div");
-				checkboxes.id = "checkboxes " + id;
-				checkboxes.style.display = "none";
-				buildIngredientCheckboxes(checkboxes, id);
-			extraDiv.appendChild(selectDiv);
-			extraDiv.appendChild(checkboxes);
-			div.appendChild(extraDiv);
-		    ////////////////////////////////////////////////////////////////
+ 		    var img = newImg();
+ 		    img.setAttribute("src", products[i].image);
+ 		    pizza.appendChild(img);
 
-			var btn = document.createElement("button");
-			btn.setAttribute('onclick', "deleteFromCart(" + id + ")");
-			btn.innerHTML = '&#10006';
-			div.appendChild(btn);
+ 		    var name = newP();
+ 		    name.innerHTML = products[i].name;
+ 		    pizza.appendChild(name);
 
-			document.getElementById("container").appendChild(div);
-			//http://www.dyn-web.com/tutorials/forms/checkbox/group.php checkbox handling
-			return;
+ 		    var multiselect = newDiv();
+ 		    multiselect.setAttribute("class", "multiselect");
+
+ 		    var selectBox = newDiv();
+ 		    selectBox.setAttribute("class", "selectBox");
+ 		    selectBox.setAttribute("onclick", "showCheckboxes(" + pId + ")");
+
+ 		    var select = newSelect();
+
+ 		    var option = newOption();
+ 		    option.innerHTML = "Extrazutaten";
+ 		    select.appendChild(option);
+ 		    selectBox.appendChild(select);
+
+ 		    var overselect = newDiv();
+ 		    overselect.setAttribute("class", "overSelect");
+ 		    selectBox.appendChild(overselect);
+ 		    multiselect.appendChild(selectBox);
+
+ 		    var checkboxes = newDiv();
+ 		    checkboxes.setAttribute("id", "checkboxes_" + pId);
+ 		    checkboxes.setAttribute("class", "checkboxes");
+ 		    checkboxes.style.display = "none";
+ 		    checkboxes.style.backgroundColor = "white";
+ 		    checkboxes.style.border = "1px #dadada solid";
+ 		    checkboxes.style.position = "relative";
+ 		    checkboxes.style.zIndex = "1000";
+ 		    buildIngredientCheckboxes(checkboxes, pId);
+ 		    pizza.appendChild(checkboxes);
+
+ 		    var btnDelete = newButton();
+ 		    btnDelete.setAttribute("type", "button");
+ 		    btnDelete.setAttribute('onclick', "deleteFromCart(" + pId + ")");
+ 		    btnDelete.innerHTML = "&#10006;";
+ 		    pizza.appendChild(btnDelete);
+
+ 		    var price = newP();
+ 		    price.setAttribute("class", "cartPrice");
+ 		    price.innerHTML = products[i].price.toFixed(2) + " €";
+ 		    pizza.appendChild(price);
+
+ 		    var priceNameTag = newP();
+ 		    priceNameTag.setAttribute("class", "cartPriceNameTag");
+ 		    priceNameTag.innerHTML = "Gundpreis:";
+ 		    pizza.appendChild(priceNameTag);
+
+ 		    appendToMainframe(pizza);
 		}    
     }
-/*div class="multiselect">
-    <div class="selectBox" onclick="showCheckboxes()">
-      <select>
-        <option>Select an option</option>
-      </select>
-      <div class="overSelect"></div>
-    </div>
-    <div id="checkboxes">
-      <label for="one">
-        <input type="checkbox" id="one" />First checkbox</label>
-      <label for="two">
-        <input type="checkbox" id="two" />Second checkbox</label>
-      <label for="three">
-        <input type="checkbox" id="three" onchange="toggleIngredient(id)"/>Third checkbox</label>
-    </div>
-  </div> */
 }
 
-function buildIngredientCheckboxes(div, idInCart) {
-    for(var i = 0; i< ingredients.length; i++){
-        var label = document.createElement("label");
-        label.htmlFor = "ckeck " + ingredients[i].artNr;
-            var checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            checkbox.id = "check " + idInCart + " " + ingredients[i].artNr;
-            checkbox.setAttribute("onchange", "changeIngredient(" + ingredients[i].artNr + ", " + idInCart + ")");
-            label.appendChild(checkbox);
-        label.innerHTML += ingredients[i].name + " " + ingredients[i].price + "€";
-        div.appendChild(label);
+function buildIngredientCheckboxes(pCheckboxes, pIdInCart) {
+    for (var i = 0; i < ingredients.length; i++) {
+        var label = newLabel();
+        label.setAttribute("for", "ckeck_" + pIdInCart + "_" + ingredients[i].artNr);
+
+        var checkbox = newInput();
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("id", "check_" + pIdInCart + "_" + ingredients[i].artNr);
+        checkbox.setAttribute("onchange", "changeIngredient(" + checkbox.id + ")");
+        label.appendChild(checkbox);
+        label.innerHTML += ingredients[i].name;
+
+        var labelPrice = newLabel();
+        labelPrice.setAttribute("class", "ingredientPrice");
+        labelPrice.innerHTML = "+" + ingredients[i].price.toFixed(2) + " €";
+        label.appendChild(labelPrice);
+        pCheckboxes.appendChild(label);
     }
 }
 
-function breakLine(div) {
-	br = document.createElement("br");
-	div.appendChild(br);
-}
-
-function showCheckboxes(id) {
-	var checkboxes = document.getElementById("checkboxes " + id);
+function showCheckboxes(pId) {
+	var checkboxes = document.getElementById("checkboxes_" + pId);
 	if (!expanded) {
 		checkboxes.style.display = "block";
 		expanded = true;
@@ -140,8 +131,8 @@ function showCheckboxes(id) {
 	}
 }
 
-function changeIngredient(ingArtNr, idInCart) {
-    var checkbox = document.getElementById("check " + idInCart + " " + ingArtNr)
+function changeIngredient(pCheckboxId) {
+    var checkbox = document.getElementById(pCheckboxId)
     if (checkbox.checked) {
         cart[idInCart].iArtNr.push(ingArtNr);
     }
@@ -155,7 +146,7 @@ function changeIngredient(ingArtNr, idInCart) {
 
 function setIngredients(idInCart, ingrToSet){
     for (var i = 0; i < ingrToSet.length; i++) {
-        var checkbox = document.getElementById("check " + idInCart + " " + ingrToSet[i]);
+        var checkbox = document.getElementById("check_" + idInCart + "_" + ingrToSet[i]);
         checkbox.setAttribute("checked", true);
     }
 }
@@ -190,7 +181,7 @@ function addToBill(pArtNr, iArtNr, idInCart) {
     htmlString = htmlString.substring(0, htmlString.length - 2);
 
     htmlString += " ............. Gesamt Preis: " + productSum + "€</div>";
-    document.getElementById("container").innerHTML += htmlString;
+    document.getElementById("main-container").innerHTML += htmlString;
 
     return productSum;
 }
@@ -211,9 +202,9 @@ function clearCart() {
 
 function updateCartCount() {
     if(cartCnt != 0) {
-        document.getElementById("btnCart").innerHTML = "Warenkorb " + cartCnt;
+        document.getElementById("btnCartCount").innerHTML = cartCnt;
     } else {
-        document.getElementById("btnCart").innerHTML = "Warenkorb";
+        document.getElementById("btnCartCount").innerHTML = 0;
     }
 }
 
@@ -237,28 +228,28 @@ function loadJSON(path, success, error)
 }
 
 function loadBill() {
-    document.getElementById("container").innerHTML = "<h1>Rechnung</h1>";
+    document.getElementById("main-container").innerHTML = "<h1>Rechnung</h1>";
     var sum = 0.0;
     for (var i = 0; i < cart.length; i++)
         sum += addToBill(cart[i].pArtNr, cart[i].iArtNr, i);
     
-    document.getElementById("container").innerHTML += "<h2>Total Price: " + sum + "€</h2>";
+    document.getElementById("main-container").innerHTML += "<h2>Total Price: " + sum + "€</h2>";
 }
 
 function loadCart()
 {
-    document.getElementById("container").innerHTML = "";
+    document.getElementById("main-container").innerHTML = "";
 
     for (var i = 0; i < cart.length; i++) {
         addPizzaToCart(cart[i].pArtNr, i);
         setIngredients(i, cart[i].iArtNr);
     }
-    document.getElementById("container").innerHTML += "<button onclick=\"loadBill()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
+    document.getElementById("main-container").innerHTML += "<button onclick=\"loadBill()\">Zur Kasse</button><button onclick=\"clearCart()\">Warenkorb leeren</button>"
 }
 
 function loadMain()
 {
-	document.getElementById("container").innerHTML = "";
+    document.getElementById("main-container").innerHTML = "";
 	for(var i = 0; i < products.length; i++)
 	{
 		addPizza(products[i].artNr, products[i].name, products[i].image, products[i].price);
@@ -266,7 +257,7 @@ function loadMain()
 }
 
 window.onload = function () {
-    var rootPath = document.getElementsByTagName("script")[0].src.slice(0, -10);
+    var rootPath = document.getElementsByTagName("script")[0].src.slice(0, -14);
     var productsPath = rootPath + "json/products.json";
     var ingredientsPath = rootPath + "json/ingredients.json";
 

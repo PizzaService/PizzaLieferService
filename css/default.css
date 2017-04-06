@@ -1,5 +1,200 @@
+﻿@charset "UTF-8";
+
+head, body, button {
+    font-family: 'Roboto', sans-serif;
+    background: #ddd;
+}
+
+header {
+    background: #76ea8e;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+h1 {
+    margin-left: 10px;
+}
+
+nav button {
+    height: 30px;
+    width: 150px;
+    cursor: pointer;
+    box-shadow: none;
+    border: none;
+    background-color: #62d279;
+    color: white;
+    border-radius: 5px;
+    padding: 0;
+    float: right;
+    margin: 10px 10px 10px 0px;
+}
+
+nav button:hover {
+    background-color: #55b569;
+}
+
+.header-button-start {
+    float: left;
+    margin: 10px 0px 10px 10px;
+}
+
+.header-button-cart {
+    border-radius: 5px 0px 0px 5px;
+    margin: 10px 0px 10px 0px;
+}
+
+.header-button-cart-count {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-color: #555555;
+    border-radius: 0px 5px 5px 0px;
+    margin: 10px 10px 10px 0px;
+}
+
+.header-button-cart-count:hover  {
+    background-color: #555555;
+    cursor: default;
+}
+
+#heading-container {
+    width: 100%;
+    height: 80px;
+    position: absolute;
+    top: 50px;
+    left: 0px;
+}
+
+#heading-container h1 {
+    float: left;
+}
+
+#heading-container button {
+    float: right;
+    height: 40px;
+    width: 180px;
+    cursor: pointer;
+    border: none;
+    background-color: #ed6a6a;
+    border-radius: 5px;
+    margin: 20px 15px 0px 0px;
+    font-size: 17px;
+}
+
+#main-container {
+    width: 100%;
+    position: absolute;
+    top: 130px;
+    left: 0px;
+}
+
+/*--------------------------------section Startseite------------------------------------------------------------*/
+
+.productStart {
+    float: left;
+    display: inline;
+    width: 15%;
+    height: 15%;
+    margin: 0.6%;
+    padding: 0.2%;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+.productStart img {
+    width: 100%;
+    height: 80%;
+}
+
+.productStart button {
+    width: 95%;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: none;
+    border: none;
+    background-color: #555555;
+    color: white;
+    border-radius: 5px;
+    padding: 0;
+    margin: 2.5%;
+}
+
+.productStart p {
+    float: right;
+    margin-right: 5px;
+}
+
+.productStart figcaption {
+    float: left;
+    margin-left: 5px;
+}
+
+/*--------------------------------section Startseite------------------------------------------------------------*/
+
+.productCart {
+    float: left;
+    display: inline;
+    width: 100%;
+    height: 80px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    position: relative;
+}
+
+.productCart img {
+    height: 70px;
+    width: 70px;
+    float: left;
+    margin: 5px 10px 0px 30px;
+}
+
+.productCart p {
+    float: left;
+    font-size: 20px;
+    margin: 30px 0px 30px 20px;
+    width: 200px;
+}
+
+.productCart p.cartPrice {
+    float: right;
+    margin: 30px 30px 30px 0px;
+    width: 100px;
+    text-align: right;
+}
+
+.productCart p.cartPriceNameTag {
+    float: right;
+    width: 100px;
+}
+
+.productCart button {
+    float: right;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border: none;
+    background-color: #ed6a6a;
+    border-radius: 5px;
+    margin: 15px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.productCart button:hover {
+    background-color: #c45858;  
+}
+
 .multiselect {
-  width: 200px;
+    float: left;
+    margin: 30px;
+    margin-left:5%;
+    width: 200px;
 }
 
 .selectBox {
@@ -7,27 +202,41 @@
 }
 
 .selectBox select {
-  width: 100%;
-  font-weight: bold;
+    width: 100%;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: none;
+    background-color: rgba(0,0,0,0.1);
 }
 
 .overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #checkboxes {
-  display: none;
-  border: 1px #dadada solid;
+    display: none;
+    background-color: white;
+    border: 1px #dadada solid;
+    position: relative;
+    z-index: 1000;
 }
 
-#checkboxes label {
-  display: block;
+.checkboxes label {
+    display: block;
 }
 
-#checkboxes label:hover {
-  background-color: #1e90ff;
+.checkboxes label:hover {
+    background-color: #1e90ff;
 }
+
+.ingredientPrice {
+    float: right;
+    margin-right: 2px;
+}
+
+
