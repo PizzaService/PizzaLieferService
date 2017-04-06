@@ -16,43 +16,48 @@ header {
   border-bottom-right-radius: 10px;
 }
 
-button.header-button-left, button.header-button-right {
-  height: 30px;
-  width: 150px;
-  cursor: pointer;
-  box-shadow: none;
-  border: none;
-  background-color: #62d279;
-  color: white;
-  border-radius: 5px;
-  padding: 0;
+nav button {
+    height: 30px;
+    width: 150px;
+    cursor: pointer;
+    box-shadow: none;
+    border: none;
+    background-color: #62d279;
+    color: white;
+    border-radius: 5px;
+    padding: 0;
+    float: right;
+    margin: 10px 10px 10px 0px;
 }
 
-button.header-button-left:hover, button.header-button-right:hover {
-  background: #55b569;
+nav button:hover {
+    background-color: #55b569;
 }
 
-button.header-button-right {
-  float: left;
-  margin: 10px 0px 10px 10px;
+.header-button-start {
+    float: left;
+    margin: 10px 0px 10px 10px;
 }
 
-button.header-button-left {
-  float: right;
-  margin: 10px 10px 10px 0px;
+.header-button-cart {
+    border-radius: 5px 0px 0px 5px;
+    margin: 10px 0px 10px 0px;
 }
 
-button.header-button-cart {
-  position: absolute;
-  top: 10px;
-  left: 1900px;
-  box-shadow: none;
-  border: none;
-  background-color: #555555;
-  color: white;
-  border-radius: 5px;
-  padding: 7px 4px;
+.header-button-cart-count {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    background-color: #555555;
+    border-radius: 0px 5px 5px 0px;
+    margin: 10px 10px 10px 0px;
 }
+
+.header-button-cart-count:hover  {
+    background-color: #555555;
+    cursor: default;
+}
+
 
 #heading-container {
   width: 100%;
@@ -113,7 +118,7 @@ img {
     margin-left:5px;
 }
 
-.shopping-cart {
+.shopping-cart, .bill {
   position: absolute;
   top:130;
   left:0;
@@ -121,6 +126,22 @@ img {
   height:80px;
   background: #ffffff;
   border-radius:10px;
+}
+
+.button-delete {
+	height: 80px;
+	width: 80px;
+	float: right;
+	margin: 0px;
+	border-radius: 0px 12px 12px 0px;
+	background-color: #FA5858;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+.button-delete:hover {
+    background-color: #FF0000;
+
 }
 
 .shopping-cart-img {
@@ -137,6 +158,63 @@ img {
 }
 
 #shopping-cart-prize {
+  float: right;
   font-size:20px;
-  margin: 30px;
+  margin: 30px 30px 30px 0px;
 }
+
+button.button-pay, button.button-delete-all, button.button-buy, button.button-cancel {
+	height: 30px;
+	width: 150px;
+	float: right;
+	margin: 10px 10px 10px 0px;
+	border-radius: 5px;
+	background-color: #62d279;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+.button-pay:hover, .button-delete-all:hover, .button-buy:hover, .button-cancel:hover  {
+    background-color: #55b569;
+
+}
+#check02 {
+	margin: 0px;
+}
+.multiselect {
+	margin: 30px;
+}
+
+.selectBox{
+	float: left;
+	margin: 0px 30px 0px 0px;
+}
+#select {
+	background-color: #62d279;
+	width: 100px;
+	border-radius: 5px;
+	padding: 2px 2px;
+	border: none;
+}
+
+#footer {
+    position:absolute;
+    bottom: 0;
+	left: 0px;
+    width: 100%;
+	margin: 0px;
+	height: 50px;
+	background: #76ea8e;
+}
+
+#number, #sum {
+  float: right;
+  font-size:20px;
+  margin: 30px 100px 30px 0px;
+
+}
+
+
+
+
+
