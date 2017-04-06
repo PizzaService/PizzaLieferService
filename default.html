@@ -11,32 +11,73 @@
   </head>
   <body>
     <header>
-      <nav>
-		    <button class="header-button-cart" type="button" name="shopping-cart">0</button>
-        <button class="header-button-right" type="button" name="default" onclick="loadMain()">Startseite</button>
-        <button class="header-button-left" type="button" name="shopping-cart" onclick="loadCart()">Warenkorb</button>		
-        <button class="header-button-left" type="button" name="LoginLogout">Login</button>
-        <button class="header-button-left" type="button" name="order-history">Meine Bestellungen</button>
-      </nav>
+        <nav>
+            <button class="header-button-cart-count" type="button" id="btnCartCount">0</button>
+            <button class="header-button-start" type="button" name="default" onclick="loadMain()">Startseite</button>
+            <button class="header-button-cart" type="button" name="shopping-cart" onclick="loadCart()">Warenkorb</button>
+            <button class="header-button-login" type="button" name="LoginLogout">Login</button>
+            <button class="header-button-orderhistory" type="button" name="order-history">Meine Bestellungen</button>
+        </nav>
     </header>
     <div id="heading-container">
       <!--<h1>Unser Angebot:</h1>-->
-      <h1>Warenkorb:</h1>
+      <!--<h1>Warenkorb:</h1>-->
+	  <h1>Kasse:</h1>
     </div>
     <div id="main-container">
+<!--	
       <figure class="picture">
         <img src="img/Pizza_Tonno.jpg" alt="Pizza Tonno">
         <figcaption id="caption">Pizza Tonno</figcaption>
         <div id="selection-prize">6€</div>
         <button id="add-to-cart" type="button" name="add-to-cart">Zum Warenkorb hinzufügen</button>
       </figure>
+-->	  
 <!--
       <div class="shopping-cart">
         <div class="shopping-cart-title">Pizza Tonno</div>
+		<button class="button-delete" type="button" name="default">Delete</button>
+		<div id="shopping-cart-prize">6€</div>
         <img src="img/Pizza_Tonno.jpg" alt="Pizza Tonno" class="shopping-cart-img">
-        <div id="shopping-cart-prize">6€</div>
-      </div>
+		
+		<div class="multiselect">
+			<div class ="selectBox" onclick="showCheckboxes(0)">
+				<select id="select" >
+					<option>extras</option>
+					<option>extras</option>
+				</select>
+				<div class="overSelect"></div>
+			</div>
+			
+			<div id="checkboxes 0" style="dislay: none;">
+				<label for="check1">
+					<input id="check 0 1" onchange="changeIngedient(1, 0)" checked="true" type="checkbox">
+					Schinken 1€
+				</label>
+				<label for="check 2"><input id="check 0 1" onchange="changeIngedient(1, 0)" checked="true" type="checkbox">
+					Jägermeister 1€</label>
+				<label for="check 3"><input id="check02" onchange="changeIngedient(2, 0)" checked="true" type="checkbox">
+					Pilze 1€</label>
+				<label for="check 4"><input id="check 0 3" onchange="changeIngedient(3, 0)" checked="true" type="checkbox">
+					Gras 0€</label>
+			</div>
+		</div>
 -->
-    </div>
+		<div class="bill">
+			<div id="sum">Gesamtkosten: </div>
+			<div id="number">Anzahl der Artikel: </div>
+			
+		</div>
+      </div>
+	</div>
+	<footer id="footer">
+<!--	
+		<button class="button-pay" type="button" name="default">Kasse</button>
+		<button class="button-delete-all" type="button" name="default">Warenkorb leeren</button>
+-->		
+		<button class="button-buy" type="button" name="default">Jetzt bestellen!</button>
+		<button class="button-cancel" type="button" name="default">Abbruch</button>
+	</footer>
   </body>
+
 </html>
