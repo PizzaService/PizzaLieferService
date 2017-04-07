@@ -8,7 +8,7 @@ function loadStart() {
     setStartTitle();
     clearMainframe();
     for (var i = 0; i < products.length; i++) {
-        addPizzaToStart(products[i].artNr, products[i].name, products[i].image, products[i].price);
+        addPizzaToStart(products[i].artNr, products[i].name, products[i].image, products[i].price, products[i].description);
     }
 }
 
@@ -27,15 +27,15 @@ function toggleIngredient(pIdInCart, pIngArtNr) {
     }
 }
 
-function setIngredients(idInCart, pIngToSet) {
+function setIngredients(pIdInCart, pIngToSet) {
     for (var i = 0; i < pIngToSet.length; i++) {
-        var checkboxId = "checkbox_" + idInCart + "_" + pIngToSet[i];
+        var checkboxId = "checkbox_" + pIdInCart + "_" + pIngToSet[i];
         setAttributeAtId(checkboxId, "checked", true);
     }
 }
 
-function addToCart(artNr) {
-    cart.push({ "pArtNr": artNr, "iArtNr": [] });
+function addToCart(pArtNr) {
+    cart.push({ "pArtNr": pArtNr, "iArtNr": [] });
     incCartCount();
 }
 
@@ -84,6 +84,8 @@ window.onload = function () {
         cart = JSON.parse(localStorage.getItem("CartPizzaService"));
         loadCartCount(cart.length);
     }
+
+    setPopupNotToProbagate();
 }
 
 window.onbeforeunload = function () {

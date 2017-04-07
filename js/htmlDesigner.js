@@ -5,8 +5,74 @@ function setAttributeAtId(pId, pAtrribute, pValue) {
     getElement(pId).setAttribute(pAtrribute, pValue);
 }
 
-function setAttributeAtId(pId, pAtrribute, pValue) {
-    getElement(pId).setAttribute(pAtrribute, pValue);
+//-------------------------------------section Popup---------------------------------------------------------------------------------
+
+function loadPopup(pName, pImgPath, pPrice, pDesicription) {
+    clearPopup();
+
+    var img = newImg();
+    img.setAttribute("src", pImgPath);
+    appendToPopup(img);
+
+    var title = newP();
+    title.setAttribute("class", "title");
+    title.innerHTML = pName;
+    appendToPopup(title);
+
+    var descriptionNameTag = newP();
+    descriptionNameTag.innerHTML = "Zutaten:";
+    appendToPopup(descriptionNameTag);
+
+    var description = newP();
+    description.innerHTML = pDesicription;
+    appendToPopup(description);
+
+    var bottomContainer = newDiv();
+    bottomContainer.setAttribute("class", "bottomContainer");
+
+    var priceNameTag = newP();
+    priceNameTag.innerHTML = "Preis:";
+    bottomContainer.appendChild(priceNameTag);
+
+    var price = newP();
+    price.setAttribute("class", "popupPrice");
+    price.innerHTML = pPrice.toFixed(2) + " &#8364;";
+    bottomContainer.appendChild(price);
+
+    var btnAddToCart = newButton();
+    btnAddToCart.setAttribute("onclick", "addToCart(); togglePopup();");
+    btnAddToCart.innerHTML = "zum Warenkorb hinzuf&uuml;gen";
+    bottomContainer.appendChild(btnAddToCart);
+    appendToPopup(bottomContainer);
+
+    togglePopup();
+}
+
+function togglePopup(e) {
+    var popup = getElement("popup");
+    var currentStyle = popup.currentStyle ? popup.currentStyle.display : getComputedStyle(popup, null).display;
+
+    if (currentStyle == "none") {
+        popup.style.display = "table";
+    } else {
+        popup.style.display = "none";
+    }
+
+    if (!e) var e = window.event;
+    e.cancelBubble = true;
+    if (e.stopPropagation) e.stopPropagation();
+
+}
+
+function setPopupNotToProbagate() {
+    getElement("popup").onclick = function (e) {
+        togglePopup();
+
+        // A cross browser compatible way to stop propagation of the event
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+    }
 }
 
 //-------------------------------------section Startseite---------------------------------------------------------------------------------
@@ -20,13 +86,14 @@ function setStartTitle() {
     headingContainer.appendChild(title);
 }
 
-function addPizzaToStart(pId, pName, pImgPath, pPrice) {
+function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
     var pizza = newFigure();
     pizza.setAttribute("id", pId);
     pizza.setAttribute("class", "productStart");
 
     var img = newImg();
     img.setAttribute("src", pImgPath);
+    img.setAttribute("onclick", "loadPopup(\"" + pName + "\", \"" + pImgPath + "\", " + pPrice + ", \"" + pDesciption + "\")");
     pizza.appendChild(img);
 
     var name = newP();
@@ -168,12 +235,12 @@ function buildIngredientCheckboxes(pCheckboxes, pIdInCart) {
 
 function showCheckboxes(pSelect, pId) {
     var checkboxes = getElement("checkboxes_" + pId);
-    if (!expanded) {
+    var currentStyle = checkboxes.currentStyle ? checkboxes.currentStyle.display : getComputedStyle(checkboxes, null).display;
+
+    if (currentStyle == "none") {
         checkboxes.style.display = "block";
-        expanded = true;
     } else {
         checkboxes.style.display = "none";
-        expanded = false;
     }
 }
 
@@ -183,10 +250,12 @@ function loadCartCount(pCartCnt) {
 }
 
 function incCartCount() {
+    cartGlow();
     getElement("btnCartCount").innerHTML = ++cartCnt;
 }
 
 function decCartCount() {
+    cartGlow();
     if (--cartCnt != 0) {
         getElement("btnCartCount").innerHTML = cartCnt;
     } else {
@@ -195,8 +264,15 @@ function decCartCount() {
 }
 
 function clearCartCount() {
+    cartGlow();
     cartCnt = 0;
     getElement("btnCartCount").innerHTML = 0;
+}
+
+function cartGlow() {
+    var btn = document.querySelector('.header-button-cart-count')
+    btn.classList.toggle('glow');
+    setTimeout(function () { btn.classList.toggle('glow'); }, 300);
 }
 
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------

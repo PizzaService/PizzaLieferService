@@ -54,6 +54,14 @@ function clearMainframe() {
     getElement("main-container").innerHTML = "";
 }
 
+function appendToPopup(pElement) {
+    getElement("popupInner").appendChild(pElement);
+}
+
+function clearPopup() {
+    getElement("popupInner").innerHTML = "";
+}
+
 function isChecked(id) {
     return getElement(id).checked;
 }

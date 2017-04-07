@@ -55,6 +55,13 @@ nav button:hover {
     background-color: #555555;
     border-radius: 0px 5px 5px 0px;
     margin: 10px 10px 10px 0px;
+    transition: all 0.1s ease-in;
+}
+
+.header-button-cart-count.glow {
+    background-color: #ed6a6a;
+    transition-delay: 2s;
+    transition: all 0.1s ease-out;
 }
 
 .header-button-cart-count:hover  {
@@ -97,6 +104,85 @@ nav button:hover {
     left: 0px;
 }
 
+/*--------------------------------section popup------------------------------------------------------------*/
+
+#popup {
+  background: rgba(0,0,0,0.5);
+  display: none;            /*gets toggled from none to table*/
+  width: 100%;
+  height: 100%; 
+  z-index: 100;
+  top: 0; 
+  left: 0; 
+  position: absolute;
+}
+
+#popupMiddle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.popupInner {
+    position: relative;
+    width: 600px;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.popupInner img {
+    width: 60%;
+    margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.popupInner p {
+    margin: 0px 30px 0px 30px;
+    font-size: 20px;
+}
+
+.popupInner p.title {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 25px;
+}
+
+.bottomContainer {
+    float: left;
+    bottom: 25px;
+    position: absolute;
+    width: 100%;
+}
+
+.bottomContainer p {
+    margin-top: 8px;
+    margin-right: 0px;
+    float: left;
+}
+
+.bottomContainer .popupPrice {
+    width: 80px;
+}
+
+.bottomContainer button {
+    float: right;
+    height: 40px;
+    width: 250px;
+    cursor: pointer;
+    border: none;
+    background-color: #555555;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    margin: 0px 30px 0px 0px;
+}
+
+.bottomContainer button:hover {
+    background-color: #777777;
+}
+
 /*--------------------------------section Startseite------------------------------------------------------------*/
 
 .productStart {
@@ -129,6 +215,10 @@ nav button:hover {
     margin: 2.5%;
 }
 
+.productStart button:hover {
+    background-color: #777777;
+}
+
 .productStart .productName{
     float: left;
     margin-left: 5px;
@@ -140,7 +230,7 @@ nav button:hover {
 	
 }
 
-/*--------------------------------section Startseite------------------------------------------------------------*/
+/*--------------------------------section Warenkorb------------------------------------------------------------*/
 
 .productCart {
     float: left;
