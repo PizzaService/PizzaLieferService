@@ -47,41 +47,13 @@ function newH1() {
 }
 
 function appendToMainframe(pElement) {
-    document.getElementById("main-container").appendChild(pElement);
+    getElement("main-container").appendChild(pElement);
 }
 
 function clearMainframe() {
-    document.getElementById("main-container").innerHTML = "";
+    getElement("main-container").innerHTML = "";
 }
 
-function setStartTitle() {
-    var headingContainer = getElement("heading-container");
-    headingContainer.innerHTML = "";
-    
-    var title = newH1();
-    title.innerHTML = "Warenauswahl";
-    headingContainer.appendChild(title);
-}
-
-function setCartTitle() {
-    var headingContainer = getElement("heading-container");
-    headingContainer.innerHTML = "";
-
-    var title = newH1();
-    title.innerHTML = "Warenkorb";
-    headingContainer.appendChild(title);
-
-    var btnDeleteAll = newButton();
-    btnDeleteAll.setAttribute("onclick", "clearCart()");
-    btnDeleteAll.innerHTML = "Warenkorb leeren";
-    headingContainer.appendChild(btnDeleteAll);
-}
-
-function setBillTitle() {
-    var headingContainer = getElement("heading-container");
-    headingContainer.innerHTML = "";
-
-    var title = newH1();
-    title.innerHTML = "Rechung";
-    headingContainer.appendChild(title);
+function isChecked(id) {
+    return getElement(id).checked;
 }
