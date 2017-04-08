@@ -2,17 +2,18 @@ var cart = [];
 var products = [];
 var ingredients = [];
 
-//-------------------------------------section Startseite---------------------------------------------------------------------------------
+//-------------------------------------section popup------------------------------------------------------------------------------------
 
-function loadStart() {
-    setStartTitle();
-    clearMainframe();
-    for (var i = 0; i < products.length; i++) {
-        addPizzaToStart(products[i].artNr, products[i].name, products[i].image, products[i].price, products[i].description);
+function setPopupNotToProbagate() {
+    getElement("popupInner").onclick = function (e) {
+        event = e || window.event;
+        event.cancelBubble = true;
+        if (event.stopPropagation)
+            event.stopPropagation();
     }
 }
 
-//-------------------------------------section Warenkorb---------------------------------------------------------------------------------
+//-------------------------------------section Warenkorb--------------------------------------------------------------------------------
 
 function toggleIngredient(pIdInCart, pIngArtNr) {
     var checkboxId = "checkbox_" + pIdInCart + "_" + pIngArtNr;
@@ -51,7 +52,7 @@ function clearCart() {
     clearCartCount();
 }
 
-//-------------------------------------section Rechnung---------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------------------------------
 
 function loadJSON(path, success, error)
 {

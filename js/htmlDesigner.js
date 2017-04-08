@@ -7,7 +7,7 @@ function setAttributeAtId(pId, pAtrribute, pValue) {
 
 //-------------------------------------section Popup---------------------------------------------------------------------------------
 
-function loadPopup(pName, pImgPath, pPrice, pDesicription) {
+function loadPopup(pId, pName, pImgPath, pPrice, pDesicription) {
     clearPopup();
 
     var img = newImg();
@@ -40,7 +40,7 @@ function loadPopup(pName, pImgPath, pPrice, pDesicription) {
     bottomContainer.appendChild(price);
 
     var btnAddToCart = newButton();
-    btnAddToCart.setAttribute("onclick", "addToCart(); togglePopup();");
+    btnAddToCart.setAttribute("onclick", "addToCart(" + pId + "); togglePopup();");
     btnAddToCart.innerHTML = "zum Warenkorb hinzuf&uuml;gen";
     bottomContainer.appendChild(btnAddToCart);
     appendToPopup(bottomContainer);
@@ -48,7 +48,7 @@ function loadPopup(pName, pImgPath, pPrice, pDesicription) {
     togglePopup();
 }
 
-function togglePopup(e) {
+function togglePopup() {
     var popup = getElement("popup");
     var currentStyle = popup.currentStyle ? popup.currentStyle.display : getComputedStyle(popup, null).display;
 
@@ -56,22 +56,6 @@ function togglePopup(e) {
         popup.style.display = "table";
     } else {
         popup.style.display = "none";
-    }
-
-    if (!e) var e = window.event;
-    e.cancelBubble = true;
-    if (e.stopPropagation) e.stopPropagation();
-
-}
-
-function setPopupNotToProbagate() {
-    getElement("popup").onclick = function (e) {
-        togglePopup();
-
-        // A cross browser compatible way to stop propagation of the event
-        if (!e) var e = window.event;
-        e.cancelBubble = true;
-        if (e.stopPropagation) e.stopPropagation();
     }
 }
 
@@ -86,6 +70,14 @@ function setStartTitle() {
     headingContainer.appendChild(title);
 }
 
+function loadStart() {
+    setStartTitle();
+    clearMainframe();
+    for (var i = 0; i < products.length; i++) {
+        addPizzaToStart(products[i].artNr, products[i].name, products[i].image, products[i].price, products[i].description);
+    }
+}
+
 function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
     var pizza = newFigure();
     pizza.setAttribute("id", pId);
@@ -93,7 +85,7 @@ function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
 
     var img = newImg();
     img.setAttribute("src", pImgPath);
-    img.setAttribute("onclick", "loadPopup(\"" + pName + "\", \"" + pImgPath + "\", " + pPrice + ", \"" + pDesciption + "\")");
+    img.setAttribute("onclick", "loadPopup(" + pId +  ", \"" + pName + "\", \"" + pImgPath + "\", " + pPrice + ", \"" + pDesciption + "\")");
     pizza.appendChild(img);
 
     var name = newP();
@@ -117,6 +109,20 @@ function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
 
 //-------------------------------------section Warenkorb---------------------------------------------------------------------------------
 
+function setCartTitle() {
+    var headingContainer = getElement("heading-container");
+    headingContainer.innerHTML = "";
+
+    var title = newH1();
+    title.innerHTML = "Warenkorb";
+    headingContainer.appendChild(title);
+
+    var btnDeleteAll = newButton();
+    btnDeleteAll.setAttribute("onclick", "clearCart()");
+    btnDeleteAll.innerHTML = "Warenkorb leeren";
+    headingContainer.appendChild(btnDeleteAll);
+}
+
 function loadCart() {
     setCartTitle();
     clearMainframe();
@@ -131,20 +137,6 @@ function loadCart() {
     btnBook.setAttribute("onclick", "loadBill()");
     btnBook.innerHTML = "Weiter";
     appendToMainframe(btnBook);
-}
-
-function setCartTitle() {
-    var headingContainer = getElement("heading-container");
-    headingContainer.innerHTML = "";
-
-    var title = newH1();
-    title.innerHTML = "Warenkorb";
-    headingContainer.appendChild(title);
-
-    var btnDeleteAll = newButton();
-    btnDeleteAll.setAttribute("onclick", "clearCart()");
-    btnDeleteAll.innerHTML = "Warenkorb leeren";
-    headingContainer.appendChild(btnDeleteAll);
 }
 
 function addPizzaToCart(pArtNr, pId) {
@@ -277,6 +269,15 @@ function cartGlow() {
 
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------
 
+function setBillTitle() {
+    var headingContainer = getElement("heading-container");
+    headingContainer.innerHTML = "";
+
+    var title = newH1();
+    title.innerHTML = "Rechung";
+    headingContainer.appendChild(title);
+}
+
 function loadBill() {
     setBillTitle();
     clearMainframe();
@@ -308,15 +309,6 @@ function loadBill() {
     btnSubmit.setAttribute("class", "submit");
     btnSubmit.innerHTML = "Buchen";
     appendToMainframe(btnSubmit);
-}
-
-function setBillTitle() {
-    var headingContainer = getElement("heading-container");
-    headingContainer.innerHTML = "";
-
-    var title = newH1();
-    title.innerHTML = "Rechung";
-    headingContainer.appendChild(title);
 }
 
 function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
