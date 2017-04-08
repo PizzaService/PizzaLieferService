@@ -1,0 +1,48 @@
+[
+  {
+    "artNr": 1,
+    "name": "Schinken",
+    "price": 1.00
+  },
+  {
+    "artNr": 2,
+    "name": "Salami",
+    "price": 1.00
+  },
+  {
+    "artNr": 3,
+    "name": "Sucuk",
+    "price": 1.00
+  },
+  {
+    "artNr": 4,
+    "name": "Pilze",
+    "price": 1.00
+  },
+  {
+    "artNr": 5,
+    "name": "Ananas",
+    "price": 1.50
+  },
+  {
+    "artNr": 6,
+    "name": "Jalape&ntilde;o",
+    "price": 1.50
+  },
+  {
+    "artNr": 7,
+    "name": "Feta",
+    "price": 2.00
+  },
+  {
+    "artNr": 8,
+    "name": "Thunfisch",
+    "price": 2.50
+  },
+  {
+    "artNr": 9,
+    "name": "Schrimps",
+    "price": 3.00
+  }
+]
+	

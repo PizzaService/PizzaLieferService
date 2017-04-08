@@ -1,0 +1,66 @@
+[
+  {
+    "artNr": 1,
+    "name": "Pizza Margherita",
+    "price": 7.40,
+    "description": "Tomatensauce, K&auml;se",
+    "image": "img/Margherita.png"
+  },
+  {
+    "artNr": 2,
+    "name": "Pizza Salami",
+    "price": 8.10,
+    "description": "Tomatensauce, Salami, K&auml;se",
+    "image": "img/Salami.png"
+  },
+  {
+    "artNr": 3,
+    "name": "Pizza Prosciutto",
+    "price": 8.10,
+    "description": "Tomatensauce, Schinken, K&auml;se",
+    "image": "img/Prosciutto.png"
+  },
+  {
+    "artNr": 5,
+    "name": "Pizza Bruschetta",
+    "price": 8.60,
+    "description": "Tomatensauce, Tomaten, Basilikum, K&auml;se",
+    "image": "img/Bruschetta.png"
+  },
+  {
+    "artNr": 6,
+    "name": "Pizza Hawaii",
+    "price": 8.80,
+    "description": "Tomatensauce, Schninken, Ananas, K&auml;se",
+    "image": "img/Hawaii.png"
+  },
+  {
+    "artNr": 7,
+    "name": "Pizza Sucuk",
+    "price": 9.10,
+    "description": "Tomatensauce, Sucuk, Oliven, Feta, K&auml;se",
+    "image": "img/Sucuk.png"
+  },
+  {
+    "artNr": 8,
+    "name": "Pizza Tonno",
+    "price": 9.70,
+    "description": "Tomatensauce, Thunfisch, Zwiebeln, K&auml;se",
+    "image": "img/Tonno.png"
+  },
+  {
+    "artNr": 9,
+    "name": "Pizza Diavolo",
+    "price": 10.40,
+    "description": "Tomatensauce, Pilze, Scharfe Salami, Jalape&ntilde;o, K&auml;se",
+    "image": "img/Diavolo.png"
+  },
+  {
+    "artNr": 10,
+    "name": "Pizza Frutti di Mare",
+    "price": 10.70,
+    "description": "Tomatensauce, Schrips, Tomaten, Zwiebeln, Lauch, K&auml;se",
+    "image": "img/Frutti_di_Mare.png"
+  }
+]
+	
