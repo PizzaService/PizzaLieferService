@@ -135,8 +135,8 @@ function loadCart() {
     var btnBook = newButton();
     btnBook.setAttribute("class", "submit");
     btnBook.setAttribute("onclick", "loadBill()");
-    btnBook.id = "goOn";
-    btnBook.innerHTML = "Weiter";
+    btnBook.id = "checkout";
+    btnBook.innerHTML = "Zur Kasse";
     appendToMainframe(btnBook);
 
     if (cartCnt == 0) {
@@ -280,7 +280,7 @@ function cartGlow() {
 }
 
 function hideGoOnButton() {
-    document.getElementById('goOn').style.display = "none";
+    document.getElementById('checkout').style.display = "none";
 }
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------
 
@@ -323,7 +323,7 @@ function loadBill() {
     var btnCheckOut = newButton();
     btnCheckOut.setAttribute("class", "submit");
     btnCheckOut.setAttribute('onclick', "openCustomerDataSheet()");
-    btnCheckOut.innerHTML = "Zur Kasse";
+    btnCheckOut.innerHTML = "Weiter";
     appendToMainframe(btnCheckOut);
 }
 
