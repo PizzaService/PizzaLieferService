@@ -4,6 +4,7 @@ import http.cookies
 import json
 import datetime
 import random
+import os.path
 
 
 class RequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -37,9 +38,15 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
         post_data["ip"] = self.address_string()
 
-        self.list_of_Orders[len(self.list_of_Orders)] = post_data
+        post_data["date"] = str(datetime.datetime.now())
 
-        self.write_list_to_json(self.list_of_Orders,"data.json")
+
+        if os.path.isfile(self.JSONFILE):
+            self.list_of_Orders = self.read_json_to_list(self.JSONFILE)
+
+        self.list_of_Orders[len(self.list_of_Orders)] = post_data #nummerierung der bestellungen
+
+        self.write_list_to_json(self.list_of_Orders,self.JSONFILE)
 
 
         f = self.send_head()
