@@ -131,12 +131,18 @@ function loadCart() {
         addPizzaToCart(cart[i].pArtNr, i);
         setIngredients(i, cart[i].iArtNr);
     }
-
+    
     var btnBook = newButton();
     btnBook.setAttribute("class", "submit");
     btnBook.setAttribute("onclick", "loadBill()");
+    btnBook.id = "goOn";
     btnBook.innerHTML = "Weiter";
     appendToMainframe(btnBook);
+
+    if (cartCnt == 0) {
+        hideGoOnButton();
+    }
+    
 }
 
 function addPizzaToCart(pArtNr, pId) {
@@ -252,6 +258,9 @@ function decCartCount() {
         getElement("btnCartCount").innerHTML = cartCnt;
     } else {
         getElement("btnCartCount").innerHTML = 0;
+        if (cartCnt == 0) {
+            hideGoOnButton();
+        }
     }
 }
 
@@ -259,6 +268,9 @@ function clearCartCount() {
     cartGlow();
     cartCnt = 0;
     getElement("btnCartCount").innerHTML = 0;
+    if (cartCnt == 0) {
+        hideGoOnButton();
+    }
 }
 
 function cartGlow() {
@@ -267,6 +279,9 @@ function cartGlow() {
     setTimeout(function () { btn.classList.toggle('glow'); }, 300);
 }
 
+function hideGoOnButton() {
+    document.getElementById('goOn').style.display = "none";
+}
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------
 
 function setBillTitle() {
