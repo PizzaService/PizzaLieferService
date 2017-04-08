@@ -74,9 +74,9 @@ function loadJSON(path, success, error)
 }
 
 window.onload = function () {
-    var rootPath = document.getElementsByTagName("script")[0].src.slice(0, -14);
-    var productsPath = rootPath + "json/products.json";
-    var ingredientsPath = rootPath + "json/ingredients.json";
+    var rootpath = "http://" + document.location.hostname;
+    var productsPath = rootpath + "/js/json/products.json";
+    var ingredientsPath = rootpath + "/js/json/ingredients.json";
 
     loadJSON(productsPath, function (data) { products = data; loadStart(); }, function (xhr) { console.log(xhr) });
     loadJSON(ingredientsPath, function (data) { ingredients = data; }, function (xhr) { console.log(xhr) });
