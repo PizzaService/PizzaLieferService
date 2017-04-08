@@ -19,6 +19,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
 
     def do_GET(self):#https://opensource.apple.com/source/python/python-3/python/Lib/SimpleHTTPServer.py
         """Serve a GET request."""
+
         self.sendcookies = 1
         self.onlyupdate = 0
         self.delete_old_cookies()
@@ -44,6 +45,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
         # dictionary of the post data
+
+        post_data["ip"] = self.address_string()
 
         self.list_of_Orders[len(self.list_of_Orders)] = post_data
 
