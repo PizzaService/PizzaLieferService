@@ -305,10 +305,11 @@ function loadBill() {
     btnBack.innerHTML = "Zur&uuml;ck";
     appendToMainframe(btnBack);
 
-    var btnSubmit = newButton();
-    btnSubmit.setAttribute("class", "submit");
-    btnSubmit.innerHTML = "Buchen";
-    appendToMainframe(btnSubmit);
+    var btnCheckOut = newButton();
+    btnCheckOut.setAttribute("class", "submit");
+    btnCheckOut.setAttribute('onclick', "openCustomerDataSheet()");
+    btnCheckOut.innerHTML = "Zur Kasse";
+    appendToMainframe(btnCheckOut);
 }
 
 function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
@@ -364,4 +365,46 @@ function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
 
     pBill.appendChild(pizza);
     return productSum;
+}
+
+function openCustomerDataSheet() {
+    var dataSheet = newDiv();
+    var nameInput = newInput();
+    var nameLabel = newLabel();
+    var streetInput = newInput();
+    var streetLabel = newLabel();
+    var plzOrtInput = newInput();
+    var plzOrtLabel = newLabel();
+    var mailInput = newInput();
+    var mailLabel = newLabel();
+    var handyInput = newInput();
+    var handyLabel = newLabel();
+    var terrorOrgInput = newInput();
+    var terrorOrgLabel = newLabel();
+    nameInput.type = "text";
+    nameLabel.innerHTML = "Name, Vorname";
+    streetInput.type = "text";
+    streetLabel.innerHTML = "Stra" + "&szlig;" + "e, Hausnummer";
+    plzOrtInput.type = "text";
+    plzOrtLabel.innerHTML = "PLZ, Ort";
+    mailInput.type = "text";
+    mailLabel.innerHTML = "Email-Adresse";
+    handyInput.type = "type";
+    handyLabel.innerHTML = "Handynummer";
+    terrorOrgInput.type = "text";
+    terrorOrgLabel.innerHTML = "Terroristische Organisation";
+    dataSheet.appendChild(nameLabel);
+    dataSheet.appendChild(nameInput);
+    dataSheet.appendChild(streetLabel);
+    dataSheet.appendChild(streetInput);
+    dataSheet.appendChild(plzOrtLabel);
+    dataSheet.appendChild(plzOrtInput);
+    dataSheet.appendChild(mailLabel);
+    dataSheet.appendChild(mailInput);
+    dataSheet.appendChild(handyLabel);
+    dataSheet.appendChild(handyInput);
+    dataSheet.appendChild(terrorOrgLabel);
+    dataSheet.appendChild(terrorOrgInput);
+    appendToMainframe(dataSheet);
+    appendToMainframe(dataSheet);
 }
