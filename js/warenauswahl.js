@@ -1,3 +1,6 @@
+//beinhaltet alle Methoden für die Startseite
+
+//lädt die Überschrift für die Warenauswahl in den heading-container
 function setStartTitle() {
     var headingContainer = getElement("heading-container");
     headingContainer.innerHTML = "";
@@ -7,6 +10,7 @@ function setStartTitle() {
     headingContainer.appendChild(title);
 }
 
+//leert den main-container und lädt die startseite
 function loadStart() {
     setStartTitle();
     clearMainframe();
@@ -15,6 +19,7 @@ function loadStart() {
     }
 }
 
+//fügt der Startseite eine Pizza hinzu
 function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
     var pizza = newFigure();
     pizza.setAttribute("id", pId);
@@ -46,6 +51,7 @@ function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
 
 //-----------------------------------------------------------popup-----------------------------------------------
 
+//lädt das Popup für die jeweilige Pizza
 function loadPopup(pId, pName, pImgPath, pPrice, pDesicription) {
     clearPopup();
 
@@ -87,6 +93,7 @@ function loadPopup(pId, pName, pImgPath, pPrice, pDesicription) {
     togglePopup();
 }
 
+//zeigt das popup an, wenn es ausgeblendet ist oder blendet es aus wenn es angezeigt ist
 function togglePopup() {
     var popup = getElement("popup");
     var currentStyle = popup.currentStyle ? popup.currentStyle.display : getComputedStyle(popup, null).display;
@@ -98,6 +105,7 @@ function togglePopup() {
     }
 }
 
+//verhindert, dass das onclick event an die unterste popupebene durchgegeben wird
 function setPopupNotToProbagate() {
     getElement("popupInner").onclick = function (e) {
         event = e || window.event;
