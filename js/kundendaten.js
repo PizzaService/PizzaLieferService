@@ -1,4 +1,4 @@
-// setzen des Titels für die Danksagungsseite
+// setzen des Titels für die Kundendaten-seite
 function setCustomerDataSheetTitle() {
     var headingContainer = getElement("heading-container");
     headingContainer.innerHTML = "";
@@ -80,8 +80,7 @@ function book() {
     if (name && firstName && street && plz && location && email && phoneNumber) {
         clearCartCount();
         loadThxForm();
-        window.setTimeout(post, 5000);
-        post(form);
+        window.setTimeout(post(form), 5000);
     } else {
         var incorrectInputText = newP();
         incorrectInputText.setAttribute("class", "incorrectInputText");
@@ -92,24 +91,34 @@ function book() {
 // erstellen eines Forms & anschließendes Befüllen. Wird anschlißend über die POST-Methpode an den Server weitergeleitet.
 // beinhaltet die Daten des Kunden und seine Bestellung
 function post(userData) {
-function post(userData) {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
 
     var fieldNames = ["Nachname", "Vorname", "Strasse", "Postleitzahl", "Ort", "Email", "Handynummer"];
 
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < userData.length; i++) {
         var field = document.createElement("input");
         field.setAttribute("type", "hidden");
         field.setAttribute("name", fieldNames[i]);
         field.setAttribute("value", userData[i]);
         form.appendChild(field);
     }
-    var jo = document.createElement("input");
-    jo.setAttribute("name", "ArtNr");
-    jo.setAttribute("value", cart[0].pArtNr);
-    form.appendChild(jo);
+
+    for (var i = 0; i < cart.length; i++) {
+        var jo = document.createElement("input");
+        jo.setAttribute("type", "hidden");
+        jo.setAttribute("name", "ArtNr"+i);
+        jo.setAttribute("value", cart[i].pArtNr);
+        form.appendChild(jo);
+    }
+    for (var i = 0; i < cart.length; i++) {
+        var jo = document.createElement("input");
+        jo.setAttribute("type", "hidden");
+        jo.setAttribute("name", "ExtraNr"+i);
+        jo.setAttribute("value", cart[i].iArtNr);
+        form.appendChild(jo);
+    }
 
     cart = [];
     document.body.appendChild(form);
