@@ -52,6 +52,31 @@ function clearCart() {
     clearCartCount();
 }
 
+//-------------------------------------section Rechnung-Kundendaten--------------------------------------------------------------------------------
+
+function book() {
+    var name = getElement("customerFormName").value;
+    var firstName = getElement("customerFormFirstName").value;
+    var street = getElement("customerFormStreet").value;
+    var plz = getElement("customerFormPlz").value;
+    var location = getElement("customerFormLocation").value;
+    var email = getElement("customerFormEMail").value;
+    var phoneNumber = getElement("customerFormCellPhone").value;
+
+    if (name && firstName && street && plz && location && email && phoneNumber) {
+        cart = [];
+        clearCartCount();
+        loadStart();
+    } else {
+        var incorrectInputText = newP();
+        incorrectInputText.setAttribute("class", "incorrectInputText");
+        incorrectInputText.innerHTML = "Es m&uuml;ssen alle Felder ausgef&uuml;llt werden um fortzufahren!";
+        getElement("customerDataSheet").appendChild(incorrectInputText);
+    }
+}
+
+
+
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
 function loadJSON(path, success, error)

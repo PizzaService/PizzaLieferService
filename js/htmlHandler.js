@@ -46,6 +46,18 @@ function newH1() {
     return document.createElement("h1");
 }
 
+function newTable() {
+    return document.createElement("table");
+}
+
+function newTr() {
+    return document.createElement("tr");
+}
+
+function newTd() {
+    return document.createElement("td");
+}
+
 function appendToMainframe(pElement) {
     getElement("main-container").appendChild(pElement);
 }

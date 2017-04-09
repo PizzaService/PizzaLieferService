@@ -140,7 +140,9 @@ function loadCart() {
     appendToMainframe(btnBook);
 
     if (cartCnt == 0) {
-        hideGoOnButton();
+        hideButtonToBill();
+        var emptyText = newP();
+        emptyText.innerHTML = "Sie haben keine Waren im Warenkorb."
     }
     
 }
@@ -258,9 +260,7 @@ function decCartCount() {
         getElement("btnCartCount").innerHTML = cartCnt;
     } else {
         getElement("btnCartCount").innerHTML = 0;
-        if (cartCnt == 0) {
-            hideGoOnButton();
-        }
+        hideButtonToBill();
     }
 }
 
@@ -268,9 +268,7 @@ function clearCartCount() {
     cartGlow();
     cartCnt = 0;
     getElement("btnCartCount").innerHTML = 0;
-    if (cartCnt == 0) {
-        hideGoOnButton();
-    }
+    hideButtonToBill();
 }
 
 function cartGlow() {
@@ -279,8 +277,10 @@ function cartGlow() {
     setTimeout(function () { btn.classList.toggle('glow'); }, 300);
 }
 
-function hideGoOnButton() {
-    document.getElementById('checkout').style.display = "none";
+function hideButtonToBill() {
+    var buttonToBill = getElement('checkout');
+    if(buttonToBill)
+        buttonToBill.style.display = "none";
 }
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------
 
@@ -320,11 +320,11 @@ function loadBill() {
     btnBack.innerHTML = "Zur&uuml;ck";
     appendToMainframe(btnBack);
 
-    var btnCheckOut = newButton();
-    btnCheckOut.setAttribute("class", "submit");
-    btnCheckOut.setAttribute('onclick', "openCustomerDataSheet()");
-    btnCheckOut.innerHTML = "Weiter";
-    appendToMainframe(btnCheckOut);
+    var btnNext = newButton();
+    btnNext.setAttribute("class", "submit");
+    btnNext.setAttribute('onclick', "loadCustomerDataSheet()");
+    btnNext.innerHTML = "Weiter";
+    appendToMainframe(btnNext);
 }
 
 function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
@@ -382,44 +382,68 @@ function addPizzaToBill(pArtNr, iArtNr, idInCart, pBill) {
     return productSum;
 }
 
-function openCustomerDataSheet() {
-    var dataSheet = newDiv();
-    var nameInput = newInput();
-    var nameLabel = newLabel();
-    var streetInput = newInput();
-    var streetLabel = newLabel();
-    var plzOrtInput = newInput();
-    var plzOrtLabel = newLabel();
-    var mailInput = newInput();
-    var mailLabel = newLabel();
-    var handyInput = newInput();
-    var handyLabel = newLabel();
-    var terrorOrgInput = newInput();
-    var terrorOrgLabel = newLabel();
-    nameInput.type = "text";
-    nameLabel.innerHTML = "Name, Vorname";
-    streetInput.type = "text";
-    streetLabel.innerHTML = "Stra" + "&szlig;" + "e, Hausnummer";
-    plzOrtInput.type = "text";
-    plzOrtLabel.innerHTML = "PLZ, Ort";
-    mailInput.type = "text";
-    mailLabel.innerHTML = "Email-Adresse";
-    handyInput.type = "type";
-    handyLabel.innerHTML = "Handynummer";
-    terrorOrgInput.type = "text";
-    terrorOrgLabel.innerHTML = "Terroristische Organisation";
-    dataSheet.appendChild(nameLabel);
-    dataSheet.appendChild(nameInput);
-    dataSheet.appendChild(streetLabel);
-    dataSheet.appendChild(streetInput);
-    dataSheet.appendChild(plzOrtLabel);
-    dataSheet.appendChild(plzOrtInput);
-    dataSheet.appendChild(mailLabel);
-    dataSheet.appendChild(mailInput);
-    dataSheet.appendChild(handyLabel);
-    dataSheet.appendChild(handyInput);
-    dataSheet.appendChild(terrorOrgLabel);
-    dataSheet.appendChild(terrorOrgInput);
-    appendToMainframe(dataSheet);
-    appendToMainframe(dataSheet);
+//-------------------------------------section Rechnung-Kundendaten---------------------------------------------------------------------------------
+
+function setCustomerDataSheetTitle() {
+    var headingContainer = getElement("heading-container");
+    headingContainer.innerHTML = "";
+
+    var title = newH1();
+    title.innerHTML = "Buchungsdaten";
+    headingContainer.appendChild(title);
+}
+
+function loadCustomerDataSheet() {
+    setCustomerDataSheetTitle();
+    clearMainframe();
+    
+    var customerDataSheet = newDiv();
+    customerDataSheet.setAttribute("class", "bill customerForm");
+    customerDataSheet.setAttribute("id", "customerDataSheet")
+
+    var description = newP();
+    description.innerHTML = "Bitte f&uuml;llen Sie alle nachfolgenden Eingabefelder korrekt und vollst&auml;ndig aus."
+    customerDataSheet.appendChild(description);
+
+    var table = newTable();
+    addRowToCustomerDataSheet(table, "Name", "customerFormName");
+    addRowToCustomerDataSheet(table, "Vorname", "customerFormFirstName");
+    addRowToCustomerDataSheet(table, "Stra&beta;e & Hausnummer", "customerFormStreet");
+    addRowToCustomerDataSheet(table, "PLZ", "customerFormPlz");
+    addRowToCustomerDataSheet(table, "Ort", "customerFormLocation");
+    addRowToCustomerDataSheet(table, "Email-Adresse", "customerFormEMail");
+    addRowToCustomerDataSheet(table, "Handynummer", "customerFormCellPhone");
+    customerDataSheet.appendChild(table);
+    appendToMainframe(customerDataSheet);
+
+    var btnBack = newButton();
+    btnBack.setAttribute("class", "back");
+    btnBack.setAttribute("onclick", "loadBill()");
+    btnBack.innerHTML = "Zur&uuml;ck";
+    appendToMainframe(btnBack);
+
+    var btnCheckOut = newButton();
+    btnCheckOut.setAttribute("class", "submit");
+    btnCheckOut.setAttribute("onclick", "book()");
+    btnCheckOut.innerHTML = "Buchen";
+    appendToMainframe(btnCheckOut);
+}
+
+function addRowToCustomerDataSheet(pTable, pName, pId) {
+    var tr = newTr();
+
+    var tdName = newTd();
+    var label = newLabel();
+    label.innerHTML = pName;
+    tdName.appendChild(label);
+    tr.appendChild(tdName);
+
+    var tdInput = newTd();
+    var input = newInput();
+    input.setAttribute("id", pId);
+    input.setAttribute("type", "text");
+    tdInput.appendChild(input);
+    tr.appendChild(tdInput);
+
+    pTable.appendChild(tr);
 }
