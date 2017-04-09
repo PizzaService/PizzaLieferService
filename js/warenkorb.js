@@ -1,3 +1,6 @@
+//beinhaltet alle Methoden für den Warenkorb
+
+//lädt in den heding-container den Titel des Warenkorbs
 function setCartTitle() {
     var headingContainer = getElement("heading-container");
     headingContainer.innerHTML = "";
@@ -12,6 +15,7 @@ function setCartTitle() {
     headingContainer.appendChild(btnDeleteAll);
 }
 
+//lädt die Warenkorb-Seite in den main-container
 function loadCart() {
     setCartTitle();
     clearMainframe();
@@ -36,6 +40,7 @@ function loadCart() {
 
 }
 
+//fügt dem main-container die pizza hinzu
 function addPizzaToCart(pArtNr, pId) {
     for (var i = 0; i < products.length; i++) {
         if (products[i].artNr == pArtNr) {
@@ -102,6 +107,7 @@ function addPizzaToCart(pArtNr, pId) {
     }
 }
 
+//fügt der pizza die auswahl der extrazutaten hinzu
 function buildIngredientCheckboxes(pCheckboxes, pIdInCart) {
     for (var i = 0; i < ingredients.length; i++) {
         var label = newLabel();
@@ -122,6 +128,7 @@ function buildIngredientCheckboxes(pCheckboxes, pIdInCart) {
     }
 }
 
+//ist zum ein/ausklappen der Extrazutaten zuständig
 function showCheckboxes(pSelect, pId) {
     var checkboxes = getElement("checkboxes_" + pId);
     var currentStyle = checkboxes.currentStyle ? checkboxes.currentStyle.display : getComputedStyle(checkboxes, null).display;
@@ -133,6 +140,7 @@ function showCheckboxes(pSelect, pId) {
     }
 }
 
+//fügt einer Ware die Extra Zutat hinzu oder entfernt sie wenn sie bereits vorhanden ist
 function toggleIngredient(pIdInCart, pIngArtNr) {
     var checkboxId = "checkbox_" + pIdInCart + "_" + pIngArtNr;
     if (isChecked(checkboxId)) {
@@ -146,6 +154,7 @@ function toggleIngredient(pIdInCart, pIngArtNr) {
     }
 }
 
+//fügt jeder Ware aus dem Warenkorb die entsprechende extrazuztat hinzu (wir nach seitenreload aufgerufen)
 function setIngredients(pIdInCart, pIngToSet) {
     for (var i = 0; i < pIngToSet.length; i++) {
         var checkboxId = "checkbox_" + pIdInCart + "_" + pIngToSet[i];
@@ -153,32 +162,38 @@ function setIngredients(pIdInCart, pIngToSet) {
     }
 }
 
+//fügt eine pizza dem Warenkorb hinzu
 function addToCart(pArtNr) {
     cart.push({ "pArtNr": pArtNr, "iArtNr": [] });
     incCartCount();
 }
 
+//entfernt eine Pizza aus dem Warenkorb
 function deleteFromCart(pIndex) {
     cart.splice(pIndex, 1);
     loadCart();
     decCartCount();
 }
 
+//leert den kompletten Warenkorb
 function clearCart() {
     cart = [];
     clearCartCount();
 }
 
+//aktualiesiert die anzeige, welche für die anzahl der im Warenkorb befindlichen Elemente zuständig sind
 function loadCartCount(pCartCnt) {
     cartCnt = pCartCnt;
     getElement("btnCartCount").innerHTML = cartCnt;
 }
 
+//inkrementiert den Warenkorbzähler
 function incCartCount() {
     cartGlow();
     getElement("btnCartCount").innerHTML = ++cartCnt;
 }
 
+//dekrementiert den Warenkorbzähler
 function decCartCount() {
     cartGlow();
     if (--cartCnt != 0) {
@@ -189,6 +204,7 @@ function decCartCount() {
     }
 }
 
+//setzt den Warenkorbzähler zurück
 function clearCartCount() {
     cartGlow();
     cartCnt = 0;
@@ -196,34 +212,16 @@ function clearCartCount() {
     hideButtonToBill();
 }
 
+//fügt ein leuchten des Warenkorbzählers hinzu
 function cartGlow() {
     var btn = document.querySelector('.header-button-cart-count')
     btn.classList.toggle('glow');
     setTimeout(function () { btn.classList.toggle('glow'); }, 300);
 }
 
+//versteckt den Button zur rechnung, wenn der Warenkorb leer ist oder zeigt ihn wieder an
 function hideButtonToBill() {
     var buttonToBill = getElement('checkout');
     if (buttonToBill)
         buttonToBill.style.display = "none";
-}
-
-function toggleIngredient(pIdInCart, pIngArtNr) {
-    var checkboxId = "checkbox_" + pIdInCart + "_" + pIngArtNr;
-    if (isChecked(checkboxId)) {
-        cart[pIdInCart].iArtNr.push(pIngArtNr);
-    }
-    else {
-        for (var i = 0; i < cart[pIdInCart].iArtNr.length; i++) {
-            if (cart[pIdInCart].iArtNr[i] == pIngArtNr)
-                cart[pIdInCart].iArtNr.splice(i, 1);
-        }
-    }
-}
-
-function setIngredients(pIdInCart, pIngToSet) {
-    for (var i = 0; i < pIngToSet.length; i++) {
-        var checkboxId = "checkbox_" + pIdInCart + "_" + pIngToSet[i];
-        setAttributeAtId(checkboxId, "checked", true);
-    }
 }
