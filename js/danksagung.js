@@ -19,11 +19,4 @@ function loadThxForm() {
     thxDiv.appendChild(description);
 
     appendToMainframe(thxDiv);
-
-    var btntoStart = newButton();
-    btntoStart.setAttribute("class", "submit");
-    btntoStart.setAttribute("onclick", "alleWarenAnzeigen()");
-    btntoStart.innerHTML = "Zur Startseite";
-    appendToMainframe(btntoStart);
-
 }
