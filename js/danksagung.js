@@ -1,3 +1,4 @@
+// setzen des Titels für die Danksagungsseite
 function setThxFormTitle() {
     var headingContainer = getElement("heading-container");
     headingContainer.innerHTML = "";
@@ -6,7 +7,7 @@ function setThxFormTitle() {
     title.innerHTML = "Vielen Dank f&uumlr ihre Bestellung!";
     headingContainer.appendChild(title);
 }
-
+// erstellen eines Div's zur Danksagung an den Kunden & anschließendes anzeigen Dieses
 function loadThxForm() {
     setThxFormTitle();
     clearMainframe();
