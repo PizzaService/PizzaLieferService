@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+.productCart {
+    float: left;
+    display: inline;
+    width: 100%;
+    height: 80px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    position: relative;
+}
+
+.productCart img {
+    height: 70px;
+    width: 70px;
+    float: left;
+    margin: 5px 10px 0px 30px;
+}
+
+.productCart p {
+    float: left;
+    font-size: 20px;
+    margin: 30px 0px 30px 20px;
+    width: 200px;
+}
+
+.productCart p.cartPrice {
+    float: right;
+    margin: 30px 30px 30px 0px;
+    width: 80px;
+    text-align: right;
+}
+
+.productCart p.cartPriceNameTag {
+    float: right;
+    width: auto;
+}
+
+.productCart button {
+    float: right;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border: none;
+    background-color: #ed6a6a;
+    border-radius: 5px;
+    margin: 15px 15px 0px 0px;
+    font-size: 25px;
+}
+
+.productCart button:hover {
+    background-color: #c45858;  
+}
+
+.multiselect {
+    float: left;
+    margin: 30px;
+    margin-left:5%;
+    width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+    width: 100%;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px 0px 0px 5px;
+    box-shadow: none;
+    background-color: #e6e6e6;
+}
+
+.overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+#checkboxes {
+    display: none;
+    background-color: white;
+    border: 1px #e6e6e6 solid;
+    position: relative;
+    z-index: 1000;
+}
+
+.checkboxes label {
+    display: block;
+}
+
+.checkboxes label:hover {
+    background-color: #1e90ff;
+}
+
+.ingredientPrice {
+    float: right;
+    margin-right: 2px;
+}

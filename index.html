@@ -4,20 +4,27 @@
     <meta charset="utf-8">
     <title>Pizzalieferservice</title>
     <link rel="reset" href="css/reset.min.css">
-    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/warenauswahl.css">
+    <link rel="stylesheet" href="css/warenkorb.css">
+    <link rel="stylesheet" href="css/rechnung.css">
+    <link rel="stylesheet" href="css/kundendaten.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <script type="text/javascript" src="js/processes.js"></script>
+    <script type="text/javascript" src="js/initialize.js"></script>
     <script type="text/javascript" src="js/htmlHandler.js"></script>
-    <script type="text/javascript" src="js/htmlDesigner.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/warenauswahl.js"></script>
+    <script type="text/javascript" src="js/warenkorb.js"></script>
+    <script type="text/javascript" src="js/rechnung.js"></script>
+    <script type="text/javascript" src="js/kundendaten.js"></script>
+    <script type="text/javascript" src="js/danksagung.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav>
             <button class="header-button-cart-count" type="button" id="btnCartCount">0</button>
-            <button class="header-button-start" type="button" name="default" onclick="loadStart()">Startseite</button>
-            <button class="header-button-cart" type="button" name="shopping-cart" onclick="loadCart()">Warenkorb</button>
-            <button class="header-button-login" type="button" name="LoginLogout">Login</button>
-            <button class="header-button-orderhistory" type="button" name="order-history">Meine Bestellungen</button>
+            <button class="header-button-start" type="button" name="default" onclick="alleWarenAnzeigen()">Startseite</button>
+            <button class="header-button-cart" type="button" name="shopping-cart" onclick="warenkorbAnzeigen()">Warenkorb</button>
         </nav>
     </header>
     <div id="heading-container">

@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+.productStart {
+    float: left;
+    display: inline;
+    width: 15%;
+    height: 15%;
+    margin: 0.6%;
+    padding: 0.2%;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+.productStart img {
+    width: 100%;
+    height: 80%;
+}
+
+.productStart img:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.productStart button {
+    width: 95%;
+    height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: none;
+    border: none;
+    background-color: #555555;
+    color: white;
+    border-radius: 5px;
+    padding: 0;
+    margin: 2.5%;
+}
+
+.productStart button:hover {
+    background-color: #777777;
+}
+
+.productStart .productName{
+    float: left;
+    margin-left: 5px;
+}
+
+.productStart .productPrice {
+    float: right;
+    margin-right: 5px;
+	
+}
+
+/*--------------------------------popup------------------------------------------------------------*/
+
+#popup {
+  background: rgba(0,0,0,0.5);
+  display: none;            /*gets toggled from none to table*/
+  width: 100%;
+  height: 100%; 
+  z-index: 100;
+  top: 0; 
+  left: 0; 
+  position: fixed;
+}
+
+#popupMiddle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.popupInner {
+    position: relative;
+    width: 600px;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.popupInner img {
+    width: 60%;
+    margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.popupInner p {
+    margin: 0px 30px 0px 30px;
+    font-size: 20px;
+}
+
+.popupInner p.title {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 25px;
+}
+
+.bottomContainer {
+    float: left;
+    bottom: 25px;
+    position: absolute;
+    width: 100%;
+}
+
+.bottomContainer p {
+    margin-top: 8px;
+    margin-right: 0px;
+    float: left;
+}
+
+.bottomContainer .popupPrice {
+    width: 80px;
+}
+
+.bottomContainer button {
+    float: right;
+    height: 40px;
+    width: 250px;
+    cursor: pointer;
+    border: none;
+    background-color: #555555;
+    color: white;
+    border-radius: 5px;
+    font-size: 17px;
+    margin: 0px 30px 0px 0px;
+}
+
+.bottomContainer button:hover {
+    background-color: #777777;
+}

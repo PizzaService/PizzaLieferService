@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.customerForm {
+    padding: 15px;
+}
+
+.customerForm input,label {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.customerForm input {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 300px;
+}
+
+.customerForm p {
+    font-size: 17px;
+    margin: 0 0 20px 5px;
+}
+
+.customerForm p.incorrectInputText {
+    margin-top: 20px;
+    color: red;
+}
