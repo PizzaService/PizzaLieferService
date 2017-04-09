@@ -66,7 +66,7 @@ function book() {
     if (name && firstName && street && plz && location && email && phoneNumber) {
         cart = [];
         clearCartCount();
-        loadStart();
+        loadThxForm();
     } else {
         var incorrectInputText = newP();
         incorrectInputText.setAttribute("class", "incorrectInputText");
