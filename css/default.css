@@ -452,3 +452,19 @@ nav button:hover {
     margin-top: 20px;
     color: red;
 }
+
+.toStart {
+    float: left;
+    height: 40px;
+    width: 180px;
+    cursor: pointer;
+    border: none;
+    background-color: #62d279;
+    border-radius: 5px;
+    margin: 20px 15px 0px 0px;
+    font-size: 17px;
+}
+
+.toStart:hover {
+    background-color: #55b569;
+}
