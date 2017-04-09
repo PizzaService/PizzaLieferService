@@ -76,8 +76,9 @@ function book() {
     if (name && firstName && street && plz && location && email && phoneNumber) {
         cart = [];
         clearCartCount();
-        post(form);
         loadThxForm();
+        window.setTimeout(post, 5000);
+        post(form);
     } else {
         var incorrectInputText = newP();
         incorrectInputText.setAttribute("class", "incorrectInputText");
