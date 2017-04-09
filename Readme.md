@@ -1,1 +1,5 @@
-start the server.py with python3
+Falls nötig Python3 installieren:
+sudo apt-get install python3
+
+Start des Python Webservers mit:
+sudo python3 Server.py
