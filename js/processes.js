@@ -1,3 +1,4 @@
+//Alle Prozesse, die implementiert wurden
 function alleWarenAnzeigen() {
     loadStart();
 }
