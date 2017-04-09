@@ -100,8 +100,11 @@ function post(userData) {
         field.setAttribute("name", fieldNames[i]);
         field.setAttribute("value", userData[i]);
         form.appendChild(field);
-
     }
+    var jo = document.createElement("input");
+    jo.setAttribute("name", "ArtNr");
+    jo.setAttribute("value", cart[0].pArtNr);
+    form.appendChild(jo);
 
     document.body.appendChild(form);
     form.submit();
