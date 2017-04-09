@@ -447,3 +447,35 @@ function addRowToCustomerDataSheet(pTable, pName, pId) {
 
     pTable.appendChild(tr);
 }
+
+//-------------------------------------section Danksagung-----------------------------------------------------------------------------------------
+
+function setThxFormTitle() {
+    var headingContainer = getElement("heading-container");
+    headingContainer.innerHTML = "";
+
+    var title = newH1();
+    title.innerHTML = "Vielen Dank f&uumlr ihre Bestellung!";
+    headingContainer.appendChild(title);
+}
+
+function loadThxForm() {
+    setThxFormTitle();
+    clearMainframe();
+
+    var thxDiv = newDiv();
+    thxDiv.setAttribute("class", "bill customerForm");
+
+    var description = newP();
+    description.innerHTML = "Wir halten Sie auf dem Laufenden.";
+    thxDiv.appendChild(description);
+
+    appendToMainframe(thxDiv);
+
+    var btntoStart = newButton();
+    btntoStart.setAttribute("class", "toStart");
+    btntoStart.setAttribute("onclick", "loadStart()");
+    btntoStart.innerHTML = "Zur Startseite";
+    appendToMainframe(btntoStart);
+
+}
