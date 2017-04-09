@@ -1,3 +1,5 @@
+//zur beseren übersichtlichkeit bei der verwendung dieser Methoden.
+
 function getElement(id) {
     return document.getElementById(id);
 }
