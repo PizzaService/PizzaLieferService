@@ -71,9 +71,12 @@ function book() {
     var email = getElement("customerFormEMail").value;
     var phoneNumber = getElement("customerFormCellPhone").value;
 
+    var form = [name, firstName, street, plz, location, email, phoneNumber];
+    
     if (name && firstName && street && plz && location && email && phoneNumber) {
         cart = [];
         clearCartCount();
+        post(form);
         loadThxForm();
     } else {
         var incorrectInputText = newP();
@@ -81,4 +84,24 @@ function book() {
         incorrectInputText.innerHTML = "Es m&uuml;ssen alle Felder ausgef&uuml;llt werden um fortzufahren!";
         getElement("customerDataSheet").appendChild(incorrectInputText);
     }
+}
+
+function post(userData) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+
+    var fieldNames = ["Nachname", "Vorname", "Strasse", "Postleitzahl", "Ort", "Email", "Handynummer"];
+
+
+    for (var i = 0; i < 7; i++) {
+        var field = document.createElement("input");
+        field.setAttribute("type", "hidden");
+        field.setAttribute("name", fieldNames[i]);
+        field.setAttribute("value", userData[i]);
+        form.appendChild(field);
+
+    }
+
+    document.body.appendChild(form);
+    form.submit();
 }
