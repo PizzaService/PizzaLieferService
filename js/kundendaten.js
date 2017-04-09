@@ -74,7 +74,6 @@ function book() {
     var form = [name, firstName, street, plz, location, email, phoneNumber];
     
     if (name && firstName && street && plz && location && email && phoneNumber) {
-        cart = [];
         clearCartCount();
         loadThxForm();
         window.setTimeout(post, 5000);
@@ -106,6 +105,7 @@ function post(userData) {
     jo.setAttribute("value", cart[0].pArtNr);
     form.appendChild(jo);
 
+    cart = [];
     document.body.appendChild(form);
     form.submit();
 }
