@@ -1,9 +1,8 @@
-var expanded = false;
+var cart = [];
+var products = [];
+var ingredients = [];
 var cartCnt = 0;
 
-function setAttributeAtId(pId, pAtrribute, pValue) {
-    getElement(pId).setAttribute(pAtrribute, pValue);
-}
 
 //-------------------------------------section Popup---------------------------------------------------------------------------------
 
@@ -40,7 +39,7 @@ function loadPopup(pId, pName, pImgPath, pPrice, pDesicription) {
     bottomContainer.appendChild(price);
 
     var btnAddToCart = newButton();
-    btnAddToCart.setAttribute("onclick", "addToCart(" + pId + "); togglePopup();");
+    btnAddToCart.setAttribute("onclick", "wareZumWarenkorbHinzufuegen(" + pId + "); togglePopup();");
     btnAddToCart.innerHTML = "zum Warenkorb hinzuf&uuml;gen";
     bottomContainer.appendChild(btnAddToCart);
     appendToPopup(bottomContainer);
@@ -56,6 +55,15 @@ function togglePopup() {
         popup.style.display = "table";
     } else {
         popup.style.display = "none";
+    }
+}
+
+function setPopupNotToProbagate() {
+    getElement("popupInner").onclick = function (e) {
+        event = e || window.event;
+        event.cancelBubble = true;
+        if (event.stopPropagation)
+            event.stopPropagation();
     }
 }
 
@@ -100,7 +108,7 @@ function addPizzaToStart(pId, pName, pImgPath, pPrice, pDesciption) {
 
     var addToCart = newButton();
     addToCart.setAttribute("type", "button");
-    addToCart.setAttribute("onclick", "addToCart(" + pId + ")");
+    addToCart.setAttribute("onclick", "wareZumWarenkorbHinzufuegen(" + pId + ")");
     addToCart.innerHTML = "zum Warenkorb hinzuf&uuml;gen";
     pizza.appendChild(addToCart);
 
@@ -118,7 +126,7 @@ function setCartTitle() {
     headingContainer.appendChild(title);
 
     var btnDeleteAll = newButton();
-    btnDeleteAll.setAttribute("onclick", "clearCart()");
+    btnDeleteAll.setAttribute("onclick", "warenkorbVerwerfen()");
     btnDeleteAll.innerHTML = "Warenkorb leeren";
     headingContainer.appendChild(btnDeleteAll);
 }
@@ -166,7 +174,7 @@ function addPizzaToCart(pArtNr, pId) {
 
             var selectBox = newDiv();
             selectBox.setAttribute("class", "selectBox");
-            selectBox.setAttribute("onclick", "showCheckboxes(this, " + pId + ")");
+            selectBox.setAttribute("onclick", "zuzatenZurWareHinzufuegenEntfernen(this, " + pId + ")");
 
             var select = newSelect();
 
@@ -194,7 +202,7 @@ function addPizzaToCart(pArtNr, pId) {
 
             var btnDelete = newButton();
             btnDelete.setAttribute("type", "button");
-            btnDelete.setAttribute('onclick', "deleteFromCart(" + pId + ")");
+            btnDelete.setAttribute('onclick', "wareAusWarenkorbEntfernen(" + pId + ")");
             btnDelete.innerHTML = "&#10006;";
             pizza.appendChild(btnDelete);
 
@@ -244,6 +252,42 @@ function showCheckboxes(pSelect, pId) {
     }
 }
 
+function toggleIngredient(pIdInCart, pIngArtNr) {
+    var checkboxId = "checkbox_" + pIdInCart + "_" + pIngArtNr;
+    if (isChecked(checkboxId)) {
+        cart[pIdInCart].iArtNr.push(pIngArtNr);
+    }
+    else {
+        for (var i = 0; i < cart[pIdInCart].iArtNr.length; i++) {
+            if (cart[pIdInCart].iArtNr[i] == pIngArtNr)
+                cart[pIdInCart].iArtNr.splice(i, 1);
+        }
+    }
+}
+
+function setIngredients(pIdInCart, pIngToSet) {
+    for (var i = 0; i < pIngToSet.length; i++) {
+        var checkboxId = "checkbox_" + pIdInCart + "_" + pIngToSet[i];
+        setAttributeAtId(checkboxId, "checked", true);
+    }
+}
+
+function addToCart(pArtNr) {
+    cart.push({ "pArtNr": pArtNr, "iArtNr": [] });
+    incCartCount();
+}
+
+function deleteFromCart(pIndex) {
+    cart.splice(pIndex, 1);
+    loadCart();
+    decCartCount();
+}
+
+function clearCart() {
+    cart = [];
+    clearCartCount();
+}
+
 function loadCartCount(pCartCnt) {
     cartCnt = pCartCnt;
     getElement("btnCartCount").innerHTML = cartCnt;
@@ -282,6 +326,27 @@ function hideButtonToBill() {
     if(buttonToBill)
         buttonToBill.style.display = "none";
 }
+
+function toggleIngredient(pIdInCart, pIngArtNr) {
+    var checkboxId = "checkbox_" + pIdInCart + "_" + pIngArtNr;
+    if (isChecked(checkboxId)) {
+        cart[pIdInCart].iArtNr.push(pIngArtNr);
+    }
+    else {
+        for (var i = 0; i < cart[pIdInCart].iArtNr.length; i++) {
+            if (cart[pIdInCart].iArtNr[i] == pIngArtNr)
+                cart[pIdInCart].iArtNr.splice(i, 1);
+        }
+    }
+}
+
+function setIngredients(pIdInCart, pIngToSet) {
+    for (var i = 0; i < pIngToSet.length; i++) {
+        var checkboxId = "checkbox_" + pIdInCart + "_" + pIngToSet[i];
+        setAttributeAtId(checkboxId, "checked", true);
+    }
+}
+
 //-------------------------------------section Rechnung---------------------------------------------------------------------------------
 
 function setBillTitle() {
@@ -316,13 +381,13 @@ function loadBill() {
 
     var btnBack = newButton();
     btnBack.setAttribute("class", "back");
-    btnBack.setAttribute("onclick", "loadCart()");
+    btnBack.setAttribute("onclick", "warenkorbAnzeigen()");
     btnBack.innerHTML = "Zur&uuml;ck";
     appendToMainframe(btnBack);
 
     var btnNext = newButton();
     btnNext.setAttribute("class", "submit");
-    btnNext.setAttribute('onclick', "loadCustomerDataSheet()");
+    btnNext.setAttribute('onclick', "benutzerdatenAbfragen()");
     btnNext.innerHTML = "Weiter";
     appendToMainframe(btnNext);
 }
@@ -418,13 +483,13 @@ function loadCustomerDataSheet() {
 
     var btnBack = newButton();
     btnBack.setAttribute("class", "back");
-    btnBack.setAttribute("onclick", "loadBill()");
+    btnBack.setAttribute("onclick", "warenkorbAuschecken()");
     btnBack.innerHTML = "Zur&uuml;ck";
     appendToMainframe(btnBack);
 
     var btnCheckOut = newButton();
     btnCheckOut.setAttribute("class", "submit");
-    btnCheckOut.setAttribute("onclick", "book()");
+    btnCheckOut.setAttribute("onclick", "bestellungSenden()");
     btnCheckOut.innerHTML = "Buchen";
     appendToMainframe(btnCheckOut);
 }
@@ -448,6 +513,27 @@ function addRowToCustomerDataSheet(pTable, pName, pId) {
     pTable.appendChild(tr);
 }
 
+function book() {
+    var name = getElement("customerFormName").value;
+    var firstName = getElement("customerFormFirstName").value;
+    var street = getElement("customerFormStreet").value;
+    var plz = getElement("customerFormPlz").value;
+    var location = getElement("customerFormLocation").value;
+    var email = getElement("customerFormEMail").value;
+    var phoneNumber = getElement("customerFormCellPhone").value;
+
+    if (name && firstName && street && plz && location && email && phoneNumber) {
+        cart = [];
+        clearCartCount();
+        loadThxForm();
+    } else {
+        var incorrectInputText = newP();
+        incorrectInputText.setAttribute("class", "incorrectInputText");
+        incorrectInputText.innerHTML = "Es m&uuml;ssen alle Felder ausgef&uuml;llt werden um fortzufahren!";
+        getElement("customerDataSheet").appendChild(incorrectInputText);
+    }
+}
+
 //-------------------------------------section Danksagung-----------------------------------------------------------------------------------------
 
 function setThxFormTitle() {
@@ -466,16 +552,60 @@ function loadThxForm() {
     var thxDiv = newDiv();
     thxDiv.setAttribute("class", "bill customerForm");
 
-    var description = newP();
+    var description = newLabel();
     description.innerHTML = "Wir halten Sie auf dem Laufenden.";
     thxDiv.appendChild(description);
 
     appendToMainframe(thxDiv);
 
     var btntoStart = newButton();
-    btntoStart.setAttribute("class", "toStart");
-    btntoStart.setAttribute("onclick", "loadStart()");
+    btntoStart.setAttribute("class", "submit");
+    btntoStart.setAttribute("onclick", "alleWarenAnzeigen()");
     btntoStart.innerHTML = "Zur Startseite";
     appendToMainframe(btntoStart);
+
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
+
+function loadJSON(path, success, error) {
+    var xhr = new XMLHttpRequest();
+    xhr.overrideMimeType("application/json");
+    xhr.open("GET", path, true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4)
+            if (xhr.status == 200 || xhr.status == 0) {
+                if (success)
+                    success(JSON.parse(xhr.responseText));
+            } else {
+                if (error)
+                    error(xhr);
+            }
+    };
+    xhr.send(null);
+}
+
+window.onload = function () {
+    var rootpath = "http://" + document.location.hostname;
+    var productsPath = rootpath + "/js/json/products.json";
+    var ingredientsPath = rootpath + "/js/json/ingredients.json";
+
+    loadJSON(productsPath, function (data) { products = data; alleWarenAnzeigen(); }, function (xhr) { console.log(xhr) });
+    loadJSON(ingredientsPath, function (data) { ingredients = data; }, function (xhr) { console.log(xhr) });
+
+    if (localStorage.getItem("CartPizzaService")) {
+        cart = JSON.parse(localStorage.getItem("CartPizzaService"));
+        loadCartCount(cart.length);
+    }
+
+    setPopupNotToProbagate();
+}
+
+window.onbeforeunload = function () {
+    if (cart.length != 0) {
+        window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));
+    } else {
+        window.localStorage.clear();
+    }
 
 }

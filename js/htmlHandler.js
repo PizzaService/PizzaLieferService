@@ -77,3 +77,7 @@ function clearPopup() {
 function isChecked(id) {
     return getElement(id).checked;
 }
+
+function setAttributeAtId(pId, pAtrribute, pValue) {
+    getElement(pId).setAttribute(pAtrribute, pValue);
+}
