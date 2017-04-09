@@ -3,6 +3,7 @@ var products = [];
 var ingredients = [];
 var cartCnt = 0;
 
+//lädt die Json vom server
 function loadJSON(path, success, error) {
     var xhr = new XMLHttpRequest();
     xhr.overrideMimeType("application/json");
@@ -20,6 +21,7 @@ function loadJSON(path, success, error) {
     xhr.send(null);
 }
 
+//lädt die Daten aus dem Json und falls im localstorage eine cartdatei ist wird diese ebenfalls geladen.
 window.onload = function () {
     var rootpath = "http://" + document.location.hostname;
     var productsPath = rootpath + "/js/json/products.json";
@@ -36,6 +38,7 @@ window.onload = function () {
     setPopupNotToProbagate();
 }
 
+//falls der Warenkorb nicht leer is wird er bei schließung oder reload der Seite in den localStorage geladen
 window.onbeforeunload = function () {
     if (cart.length != 0) {
         window.localStorage.setItem("CartPizzaService", JSON.stringify(cart));
