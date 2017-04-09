@@ -1,3 +1,4 @@
+// setzen des Titels für die Danksagungsseite
 function setCustomerDataSheetTitle() {
     var headingContainer = getElement("heading-container");
     headingContainer.innerHTML = "";
@@ -6,7 +7,8 @@ function setCustomerDataSheetTitle() {
     title.innerHTML = "Buchungsdaten";
     headingContainer.appendChild(title);
 }
-
+// hier wird das Form erstellt, in das der Kunde seine Daten eintragen kann, bzw. sollte
+// man kann die Daten bestätigen(button), oder zurück gehen
 function loadCustomerDataSheet() {
     setCustomerDataSheetTitle();
     clearMainframe();
@@ -42,7 +44,7 @@ function loadCustomerDataSheet() {
     btnCheckOut.innerHTML = "Buchen";
     appendToMainframe(btnCheckOut);
 }
-
+// lädt beschreibung und eingabefeld in die Tabelle. zeilenweise
 function addRowToCustomerDataSheet(pTable, pName, pId) {
     var tr = newTr();
 
@@ -61,7 +63,9 @@ function addRowToCustomerDataSheet(pTable, pName, pId) {
 
     pTable.appendChild(tr);
 }
-
+// wird aufgerufen, wenn man seine Daten im Form bestätiogt hat(über button)
+// holt sich die userData und schreibt diese in ein Array, welches in der post-Funktion anwendung findet
+// Felder des Forms müssen befüllt sein. Wird hier überprüft
 function book() {
     var name = getElement("customerFormName").value;
     var firstName = getElement("customerFormFirstName").value;
@@ -85,7 +89,9 @@ function book() {
         getElement("customerDataSheet").appendChild(incorrectInputText);
     }
 }
-
+// erstellen eines Forms & anschließendes Befüllen. Wird anschlißend über die POST-Methpode an den Server weitergeleitet.
+// beinhaltet die Daten des Kunden und seine Bestellung
+function post(userData) {
 function post(userData) {
     var form = document.createElement("form");
     form.setAttribute("method", "post");
